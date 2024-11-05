@@ -12,7 +12,7 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(
-        topBar = { CenterAlignedTopAppBarExample() },
+        topBar = { CenterAlignedTopAppBar() },
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
         Column (modifier = Modifier.padding(innerPadding)) {

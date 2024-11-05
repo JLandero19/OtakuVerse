@@ -17,7 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import com.example.otakuverse.R
 
 @Composable
@@ -28,9 +30,20 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     )
 }
 
+@Composable
+fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
+    Text(
+        text = str,
+        fontWeight = FontWeight.Bold,
+        fontSize = 25.sp,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = modifier
+    )
+}
+
 // Esta función me crea un TopBar básico
 @Composable
-fun CenterAlignedTopAppBarExample() {
+fun CenterAlignedTopAppBar() {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -48,6 +61,7 @@ fun CenterAlignedTopAppBarExample() {
             Text(
                 stringResource(R.string.title),
                 maxLines = 1,
+                style = MaterialTheme.typography.headlineMedium,
                 overflow = TextOverflow.Ellipsis
             )
         },
@@ -71,4 +85,9 @@ fun CenterAlignedTopAppBarExample() {
         },
         scrollBehavior = scrollBehavior,
     )
+}
+
+@Composable
+fun ShareButtonStandard() {
+
 }
