@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-//import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.otakuverse.components.AboutScreen
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 
@@ -36,7 +35,6 @@ class AboutActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -46,9 +44,6 @@ class AboutActivity : ComponentActivity() {
                 )
             }
         }
-
-//        screenSplash.setKeepOnScreenCondition { false }
-
     }
 }
 
