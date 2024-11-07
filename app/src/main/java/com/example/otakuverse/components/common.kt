@@ -66,14 +66,14 @@ fun CenterAlignedTopAppBar() {
             )
         },
         // Icono de navegación
-        navigationIcon = {
-            IconButton(onClick = { /* do something */ }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Volver a la pantalla anterior",
-                )
-            }
-        },
+//        navigationIcon = {
+//            IconButton(onClick = { /* do something */ }) {
+//                Icon(
+//                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+//                    contentDescription = "Volver a la pantalla anterior",
+//                )
+//            }
+//        },
         // Icono de acción
         actions = {
             IconButton(onClick = { /* do something */ }) {

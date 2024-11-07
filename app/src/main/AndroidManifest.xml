@@ -15,6 +15,7 @@
         <activity
             android:name=".AboutActivity"
             android:exported="true"
+            android:theme="@style/Theme.Otakuverse.MySplash"
             android:label="@string/title_activity_about">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
