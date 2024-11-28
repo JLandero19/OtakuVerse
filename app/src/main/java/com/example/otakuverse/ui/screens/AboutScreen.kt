@@ -1,4 +1,4 @@
-package com.example.otakuverse.components
+package com.example.otakuverse.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.otakuverse.components.CenterAlignedTopAppBar
+import com.example.otakuverse.components.TitlePageStandard
 
 @Composable
 fun AboutScreen(
