@@ -63,8 +63,10 @@ fun Greeting2(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview2() {
+fun AboutScreenPreview() {
     OtakuverseTheme {
-        Greeting2("Android")
+        AboutScreen(
+            onShareButton = { }
+        )
     }
 }

@@ -24,7 +24,7 @@ object Datasource {
         mutableListOf<Anime>(
             Anime(
                 "Fullmetal Alchemist: Brotherhood",
-                "1.jpg",
+                "fullmetal_alchemist",
                 1,
                 9.1F,
                 "TV (64 eps)",
@@ -32,7 +32,7 @@ object Datasource {
             ),
             Anime(
                 "One Piece",
-                "2.jpg",
+                "one_piece",
                 2,
                 8.71F,
                 null,
@@ -40,7 +40,7 @@ object Datasource {
             ),
             Anime(
                 "Hunter x Hunter (2011)",
-                "3.jpg",
+                "hunter_x_hunter",
                 3,
                 9.04F,
                 "TV (14 eps)8",
@@ -48,7 +48,7 @@ object Datasource {
             ),
             Anime(
                 "Steins;Gate",
-                "4.jpg",
+                "steins_gate",
                 4,
                 9.07F,
                 "TV (24 eps)",
@@ -56,7 +56,7 @@ object Datasource {
             ),
             Anime(
                 "Death Note",
-                "5.jpg",
+                "death_note",
                 5,
                 8.62F,
                 "TV (37 eps)",
@@ -64,7 +64,7 @@ object Datasource {
             ),
             Anime(
                 "Shingeki no Kyojin",
-                "6.jpg",
+                "shingeki_no_kyogin",
                 6,
                 8.54F,
                 "TV (25 eps)",
@@ -72,7 +72,7 @@ object Datasource {
             ),
             Anime(
                 "Naruto: Shippuden",
-                "7.jpg",
+                "naruto_shippuden",
                 7,
                 8.26F,
                 "TV (50 eps)0",
@@ -80,7 +80,7 @@ object Datasource {
             ),
             Anime(
                 "Code Geass: Hangyaku no Lelouch",
-                "8.jpg",
+                "code_geas",
                 8,
                 8.7F,
                 "TV (25 eps)",
@@ -88,7 +88,7 @@ object Datasource {
             ),
             Anime(
                 "Neon Genesis Evangelion",
-                "9.jpg",
+                "neo_genesis_evangelion",
                 9,
                 8.35F,
                 "TV (30 eps)",
@@ -96,7 +96,7 @@ object Datasource {
             ),
             Anime(
                 "Kimetsu no Yaiba",
-                "10.jpg",
+                "kimetsu_no_yaiba",
                 10,
                 8.49F,
                 "TV (26 eps)",
@@ -126,6 +126,16 @@ object Datasource {
         if(num <= animes.size) animes.subList(0, num)
         animes
     }
+
+    // Esta función es para transformar una URL
+    // Convierte la URL https://cdn.myanimelist.net/r/50x70/images/anime/1079/138100.jpg
+    // En está URL => https://cdn.myanimelist.net/images/anime/1079/138100.jpg
+    // MT 225 x 327
+    fun transformUrl(url: String): String {
+        // Reemplazamos "/r/50x70/" por un espacio vacío
+        return url.replace("/r/50x70", "")
+    }
+
 
     // Devuelve las imágenes
     fun getDrawableIdByName(name: String): Int {

@@ -2,6 +2,9 @@
 
 package com.example.otakuverse.components
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -15,10 +18,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.otakuverse.R
 
@@ -87,7 +93,36 @@ fun CenterAlignedTopAppBar() {
     )
 }
 
-@Composable
-fun ShareButtonStandard() {
 
+@Composable
+fun ImageAnime(
+    modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Fit,
+    drawable: Int,
+    contentDesc: String = "",
+    height: Int = 0,
+    width: Int = 0
+) {
+    val contentDescription =
+        if (contentDesc == "")
+            stringResource(id = R.string.default_content_description)
+        else
+            contentDesc
+    if(height != 0 && width != 0) {
+        Image(
+            painter = painterResource(id = drawable),
+            contentDescription = contentDescription,
+            modifier
+                .height(height.dp)
+                .width(width.dp),
+            contentScale = contentScale
+        )
+    } else {
+        Image(
+            modifier = modifier,
+            painter = painterResource(id = drawable),
+            contentDescription = contentDescription,
+            contentScale = contentScale
+        )
+    }
 }

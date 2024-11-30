@@ -26,8 +26,8 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun MainScreenPreview() {
     OtakuverseTheme {
-        Greeting("Android")
+        MainScreen()
     }
 }
