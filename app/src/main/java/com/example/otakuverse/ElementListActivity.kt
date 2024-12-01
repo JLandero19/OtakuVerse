@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.otakuverse.components.Greeting
 import com.example.otakuverse.ui.screens.ElementListScreen
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 
@@ -24,7 +23,7 @@ class ElementListActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ElementListPreview() {
     OtakuverseTheme {
         ElementListScreen()
     }

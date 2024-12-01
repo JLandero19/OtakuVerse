@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.otakuverse.components.CenterAlignedTopAppBar
-import com.example.otakuverse.components.Greeting
+import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
+import com.example.otakuverse.ui.components.Greeting
 
 @Composable
 fun MainScreen(

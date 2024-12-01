@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.otakuverse.ui.screens.AboutScreen
+import com.example.otakuverse.ui.screens.ElementListScreen
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 
 class AboutActivity : ComponentActivity() {
@@ -41,9 +42,12 @@ class AboutActivity : ComponentActivity() {
 
         setContent {
             OtakuverseTheme {
-                AboutScreen(
-                    onShareButton = { shareApp() }
-                )
+
+                ElementListScreen()
+
+//                AboutScreen(
+//                    onShareButton = { shareApp() }
+//                )
             }
         }
 

@@ -14,11 +14,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.otakuverse.components.CenterAlignedTopAppBar
-import com.example.otakuverse.components.TitlePageStandard
+import com.example.otakuverse.R
+import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
+import com.example.otakuverse.ui.components.TitlePageStandard
 
 @Composable
 fun AboutScreen(
@@ -26,7 +28,7 @@ fun AboutScreen(
     modifier: Modifier = Modifier
 ) {
     Scaffold(
-        topBar = { CenterAlignedTopAppBar() },
+        topBar = { CenterAlignedTopAppBar(text = stringResource(R.string.about)) },
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
         Column (

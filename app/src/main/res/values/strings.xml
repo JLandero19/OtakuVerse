@@ -3,4 +3,6 @@
     <string name="title_activity_about">AboutActivity</string>
     <string name="title">OtakuVerse</string>
     <string name="default_content_description">Imagen del anime</string>
+    <string name="about">Sobre Nosotros</string>
+    <string name="anime_list">Lista de Animes</string>
 </resources>

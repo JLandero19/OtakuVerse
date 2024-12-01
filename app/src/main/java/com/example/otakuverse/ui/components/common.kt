@@ -1,13 +1,22 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.example.otakuverse.components
+package com.example.otakuverse.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,16 +26,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.otakuverse.R
+import com.example.otakuverse.model.Anime
+import com.example.otakuverse.model.Datasource
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -49,7 +64,7 @@ fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
 
 // Esta función me crea un TopBar básico
 @Composable
-fun CenterAlignedTopAppBar() {
+fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title)) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -65,7 +80,7 @@ fun CenterAlignedTopAppBar() {
         // Título del TopBar
         title = {
             Text(
-                stringResource(R.string.title),
+                text = text,
                 maxLines = 1,
                 style = MaterialTheme.typography.headlineMedium,
                 overflow = TextOverflow.Ellipsis
@@ -93,11 +108,24 @@ fun CenterAlignedTopAppBar() {
     )
 }
 
+@Composable
+fun TitleCardStandard(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        fontWeight = FontWeight.Bold,
+        fontSize = 25.sp,
+        color = MaterialTheme.colorScheme.onPrimary,
+        style = MaterialTheme.typography.titleSmall,
+        textAlign = TextAlign.Center,
+        modifier = modifier.padding(8.dp)
+    )
+}
 
 @Composable
 fun ImageAnime(
     modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Fit,
+    contentScale: ContentScale = ContentScale.Crop,
+//    title: String = "",
     drawable: Int,
     contentDesc: String = "",
     height: Int = 0,
@@ -109,20 +137,54 @@ fun ImageAnime(
         else
             contentDesc
     if(height != 0 && width != 0) {
-        Image(
-            painter = painterResource(id = drawable),
-            contentDescription = contentDescription,
-            modifier
-                .height(height.dp)
-                .width(width.dp),
-            contentScale = contentScale
-        )
+        Box {
+            Image(
+                painter = painterResource(id = drawable),
+                contentDescription = contentDescription,
+                modifier
+                    .height(height.dp)
+                    .width(width.dp),
+                contentScale = contentScale
+            )
+//            TitleCardStandard(
+//                text = title,
+//                modifier = Modifier
+//                    .align(Alignment.Center)
+//                    .padding(16.dp)
+//            )
+        }
     } else {
-        Image(
-            modifier = modifier,
-            painter = painterResource(id = drawable),
-            contentDescription = contentDescription,
-            contentScale = contentScale
+        Box {
+            Image(
+                modifier = modifier,
+                painter = painterResource(id = drawable),
+                contentDescription = contentDescription,
+                contentScale = contentScale
+            )
+//            TitleCardStandard(
+//                text = title,
+//                modifier = Modifier
+//                    .align(Alignment.Center)
+//                    .padding(16.dp)
+//            )
+        }
+    }
+}
+
+@Composable
+fun AnimeCard(anime: Anime) {
+    Card(
+        modifier = Modifier
+            .padding(8.dp),
+
+        shape = MaterialTheme.shapes.large,
+    ) {
+        // Imagen del anime
+        ImageAnime(
+            modifier = Modifier.fillMaxSize().height(250.dp),
+            drawable = Datasource.getDrawableIdByName(anime.image_url),
+//            title = anime.title,
         )
     }
 }
+
