@@ -125,6 +125,12 @@ object Datasource {
         topAnimeList().find { it.title == title } ?: null
     }
 
+    // Devuelve una lista de favoritos
+    val getAnimesFavorite: () -> MutableList<Anime>? = {
+        val favorite = topAnimeList().filter { it.favorite }
+        if (favorite.isEmpty()) null else favorite.toMutableList()
+    }
+
     // Devuelve algunos animes de la lista
     val getSomeRandAnimes : (Int) -> MutableList<Anime> = { num ->
         val animes = topAnimeList()

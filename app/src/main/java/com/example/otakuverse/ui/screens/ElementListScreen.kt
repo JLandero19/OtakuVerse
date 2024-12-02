@@ -28,9 +28,13 @@ import com.example.otakuverse.ui.components.Greeting
 
 @Composable
 fun ElementListScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleScreen: String = stringResource(R.string.anime_list),
+    favorite: Boolean = false
 ) {
-    val animes = Datasource.getListXtimes(1)
+    val animes = if (!favorite) Datasource.getListXtimes(1) else Datasource.getAnimesFavorite()
+    // Para controlar si es nulo
+    val animeList = animes ?: emptyList()
 
     Scaffold(
         topBar = { CenterAlignedTopAppBar(text = stringResource(R.string.anime_list)) },
@@ -43,7 +47,7 @@ fun ElementListScreen(
                 columns = GridCells.Fixed(2), // Esto asegura dos columnas
                 contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
             ) {
-                items(animes) { anime ->
+                items(animeList) { anime ->
 //                    when (windowSize) {
 //                        WindowWidthSizeClass.Compact -> { HeroCard(hero) }
 //                        else -> { HeroCardMedExp(hero) }
@@ -52,6 +56,5 @@ fun ElementListScreen(
                 }
             }
         }
-
     }
 }

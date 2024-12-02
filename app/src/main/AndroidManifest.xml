@@ -13,10 +13,15 @@
         android:theme="@style/Theme.Otakuverse"
         tools:targetApi="31">
         <activity
+            android:name=".ElementListFavoriteActivity"
+            android:exported="false"
+            android:label="@string/title_activity_element_list_favorite"
+            android:theme="@style/Theme.Otakuverse" />
+        <activity
             android:name=".AboutActivity"
             android:exported="true"
-            android:theme="@style/Theme.Otakuverse.MySplash"
-            android:label="@string/title_activity_about">
+            android:label="@string/title_activity_about"
+            android:theme="@style/Theme.Otakuverse.MySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

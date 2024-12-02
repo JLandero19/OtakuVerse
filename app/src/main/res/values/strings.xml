@@ -6,4 +6,6 @@
     <string name="about">Sobre Nosotros</string>
     <string name="anime_list">Lista de Animes</string>
     <string name="favorite">Favorite</string>
+    <string name="title_activity_element_list_favorite">ElementListFavoriteActivity</string>
+    <string name="favoriteList">Lista de favoritos</string>
 </resources>
