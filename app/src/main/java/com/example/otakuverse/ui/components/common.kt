@@ -3,6 +3,7 @@
 package com.example.otakuverse.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -10,11 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.twotone.Favorite
+import androidx.compose.material.icons.twotone.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -31,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -72,10 +78,10 @@ fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title)) {
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
 //            containerColor = MaterialTheme.colorScheme.primaryContainer,
 //            titleContentColor = MaterialTheme.colorScheme.primary,
-            containerColor = colorResource(R.color.dark_red),
-            titleContentColor = colorResource(R.color.white),
-            actionIconContentColor = colorResource(R.color.white),
-            navigationIconContentColor = colorResource(R.color.white)
+            containerColor = MaterialTheme.colorScheme.primary,
+            titleContentColor = MaterialTheme.colorScheme.onPrimary,
+            actionIconContentColor = MaterialTheme.colorScheme.onPrimary,
+            navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
         ),
         // Título del TopBar
         title = {
@@ -128,6 +134,7 @@ fun ImageAnime(
 //    title: String = "",
     drawable: Int,
     contentDesc: String = "",
+    favorite: Boolean = false,
     height: Int = 0,
     width: Int = 0
 ) {
@@ -146,6 +153,26 @@ fun ImageAnime(
                     .width(width.dp),
                 contentScale = contentScale
             )
+
+            // Botón de acción con ícono
+            // Botón de acción con ícono
+            IconButton(
+                onClick = { /* Acción futura, como mostrar más información del héroe */ },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(6.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+            ) {
+                Icon(
+                    imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = stringResource(R.string.favorite),
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
 //            TitleCardStandard(
 //                text = title,
 //                modifier = Modifier
@@ -161,12 +188,25 @@ fun ImageAnime(
                 contentDescription = contentDescription,
                 contentScale = contentScale
             )
-//            TitleCardStandard(
-//                text = title,
-//                modifier = Modifier
-//                    .align(Alignment.Center)
-//                    .padding(16.dp)
-//            )
+
+            // Botón de acción con ícono
+            IconButton(
+                onClick = { /* Acción futura, como mostrar más información del héroe */ },
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(6.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+            ) {
+                Icon(
+                    imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = stringResource(R.string.favorite),
+                    tint = MaterialTheme.colorScheme.error
+                )
+            }
         }
     }
 }
@@ -184,6 +224,7 @@ fun AnimeCard(anime: Anime) {
             modifier = Modifier.fillMaxSize().height(250.dp),
             drawable = Datasource.getDrawableIdByName(anime.image_url),
 //            title = anime.title,
+            favorite = anime.favorite
         )
     }
 }

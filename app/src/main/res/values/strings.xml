@@ -5,4 +5,5 @@
     <string name="default_content_description">Imagen del anime</string>
     <string name="about">Sobre Nosotros</string>
     <string name="anime_list">Lista de Animes</string>
+    <string name="favorite">Favorite</string>
 </resources>

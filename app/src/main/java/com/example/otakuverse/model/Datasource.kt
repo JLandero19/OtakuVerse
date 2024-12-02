@@ -36,7 +36,8 @@ object Datasource {
                 2,
                 8.71F,
                 null,
-                "Oct 1999 -"
+                "Oct 1999 -",
+                true
             ),
             Anime(
                 "Hunter x Hunter (2011)",
@@ -44,7 +45,8 @@ object Datasource {
                 3,
                 9.04F,
                 "TV (14 eps)8",
-                "Oct 2011 - Sep 2014"
+                "Oct 2011 - Sep 2014",
+                true
             ),
             Anime(
                 "Steins;Gate",
@@ -60,7 +62,8 @@ object Datasource {
                 5,
                 8.62F,
                 "TV (37 eps)",
-                "Oct 2006 - Jun 2007"
+                "Oct 2006 - Jun 2007",
+                true
             ),
             Anime(
                 "Shingeki no Kyojin",
@@ -76,7 +79,8 @@ object Datasource {
                 7,
                 8.26F,
                 "TV (50 eps)0",
-                "Feb 2007 - Mar 2017"
+                "Feb 2007 - Mar 2017",
+                true
             ),
             Anime(
                 "Code Geass: Hangyaku no Lelouch",
@@ -100,7 +104,8 @@ object Datasource {
                 10,
                 8.49F,
                 "TV (26 eps)",
-                "Apr 2019 - Sep 2019"
+                "Apr 2019 - Sep 2019",
+                true
             ),
         ).apply { shuffle() }
     }
