@@ -27,47 +27,42 @@ fun AboutScreen(
     onShareButton : () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
-        topBar = { CenterAlignedTopAppBar(text = stringResource(R.string.about)) },
-        modifier = modifier.fillMaxSize()
-    ) { innerPadding ->
-        Column (
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(innerPadding)
-                .fillMaxSize()
-        ) {
-            TitlePageStandard(
-                str = "Sobre la aplicación",
-            )
-            Text(
-                text = """
-                    En está aplicación verás en detalle la información sobrelos animes y mangas actuales.
-                    Tenemos acceso a esta información gracias a MyAnimeList que nos probé de las ultimos estrenos.
-                """.trimIndent(),
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(all = 20.dp)
-            )
+    Column (
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        TitlePageStandard(
+            str = "Sobre la aplicación",
+        )
+        Text(
+            text = """
+                En está aplicación verás en detalle la información sobrelos animes y mangas actuales.
+                Tenemos acceso a esta información gracias a MyAnimeList que nos probé de las ultimos estrenos.
+            """.trimIndent(),
+            fontSize = 20.sp,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(all = 20.dp)
+        )
 
-            Text(
-                text = "Versión 1.0.0",
-                fontSize = 16.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(all = 20.dp)
+        Text(
+            text = "Versión 1.0.0",
+            fontSize = 16.sp,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(all = 20.dp)
+        )
+        IconButton(
+            onClick = {
+                onShareButton()
+            },
+            modifier = Modifier.padding(all = 20.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Email,
+                contentDescription = "Compartir",
+                modifier = Modifier.size(56.dp)
             )
-            IconButton(
-                onClick = {
-                    onShareButton()
-                },
-                modifier = Modifier.padding(all = 20.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Email,
-                    contentDescription = "Compartir",
-                    modifier = Modifier.size(56.dp)
-                )
-            }
         }
     }
 }

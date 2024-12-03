@@ -8,4 +8,6 @@
     <string name="favorite">Favorite</string>
     <string name="title_activity_element_list_favorite">ElementListFavoriteActivity</string>
     <string name="favoriteList">Lista de favoritos</string>
+    <string name="title_activity_detail_item_screen">DetailItemScreen</string>
+    <string name="detail_anime">Detalle Anime</string>
 </resources>

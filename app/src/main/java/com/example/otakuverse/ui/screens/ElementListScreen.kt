@@ -29,31 +29,23 @@ import com.example.otakuverse.ui.components.Greeting
 @Composable
 fun ElementListScreen(
     modifier: Modifier = Modifier,
-    titleScreen: String = stringResource(R.string.anime_list),
     favorite: Boolean = false
 ) {
     val animes = if (!favorite) Datasource.getListXtimes(1) else Datasource.getAnimesFavorite()
     // Para controlar si es nulo
     val animeList = animes ?: emptyList()
 
-    Scaffold(
-        topBar = { CenterAlignedTopAppBar(text = stringResource(R.string.anime_list)) },
-        modifier = modifier.fillMaxSize()
-    ) { innerPadding ->
-        Column (
-            modifier.padding(innerPadding).fillMaxSize()
+    Column (modifier = modifier.fillMaxSize()) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2), // Esto asegura dos columnas
+            contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2), // Esto asegura dos columnas
-                contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
-            ) {
-                items(animeList) { anime ->
+            items(animeList) { anime ->
 //                    when (windowSize) {
 //                        WindowWidthSizeClass.Compact -> { HeroCard(hero) }
 //                        else -> { HeroCardMedExp(hero) }
 //                    }
-                    AnimeCard(anime)
-                }
+                AnimeCard(anime)
             }
         }
     }

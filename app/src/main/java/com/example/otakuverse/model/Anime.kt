@@ -8,5 +8,6 @@ data class Anime(
     val score: Float,
     val number_episodes: String?,
     val aired_on: String,
+    val description: String = "",
     val favorite: Boolean = false
 )

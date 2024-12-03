@@ -7,19 +7,25 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.compose.OtakuverseTheme
+import com.example.otakuverse.model.Anime
+import com.example.otakuverse.ui.theme.OtakuverseTheme
+import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.screens.AboutScreen
+import com.example.otakuverse.ui.screens.DetailScreen
 import com.example.otakuverse.ui.screens.ElementListScreen
 
 class AboutActivity : ComponentActivity() {
 
     @SuppressLint("IntentReset")
-    private fun shareApp() {
+    fun shareApp() {
         val subject = "Información sobre la aplicación"
         val msg = """
             En está aplicación verás en detalle la información sobre los animes y mangas actuales.
@@ -42,8 +48,8 @@ class AboutActivity : ComponentActivity() {
 
         setContent {
             OtakuverseTheme {
-                AboutScreen(
-                    onShareButton = { shareApp() }
+                OtakuverseApp(
+                    onShare = { shareApp() },
                 )
             }
         }
@@ -55,19 +61,47 @@ class AboutActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.string.about)) {
+
+    val anime = Anime(
+        "One Piece",
+        "one_piece",
+        2,
+        8.71F,
+        null,
+        "Oct 1999 -",
+        "One Piece narra la historia de un joven llamado Monkey D. Luffy, que inspirado por su amigo pirata Shanks, comienza un viaje para alcanzar su sueño, ser el Rey de los piratas, para lo cual deberá encontrar el tesoro One Piece dejado por el anterior rey de los piratas Gol D. Roger.",
+        true
     )
+
+    Scaffold(
+        topBar = { CenterAlignedTopAppBar(text = title) },
+        modifier = Modifier.fillMaxSize()
+    ) { innerPadding ->
+//        AboutScreen(
+//            onShareButton = { onShare() },
+//            modifier = Modifier.padding(innerPadding)
+//        )
+
+        // Lista de animes
+        ElementListScreen(modifier = Modifier.padding(innerPadding))
+
+        // Lista de animes favoritos
+//        ElementListScreen(
+//            favorite = true,
+//            modifier = Modifier.padding(innerPadding)
+//        )
+
+        // Detalles Animes
+//        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AboutScreenPreview() {
+fun ScreenPreview() {
+
     OtakuverseTheme {
-        AboutScreen(
-            onShareButton = { }
-        )
+        OtakuverseApp(title = stringResource(R.string.anime_list))
     }
 }

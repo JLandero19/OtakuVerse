@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.compose.OtakuverseTheme
+import com.example.otakuverse.ui.theme.OtakuverseTheme
 import com.example.otakuverse.ui.screens.MainScreen
 
 class MainActivity : ComponentActivity() {

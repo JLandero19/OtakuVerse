@@ -13,6 +13,16 @@
         android:theme="@style/Theme.Otakuverse"
         tools:targetApi="31">
         <activity
+            android:name=".DetailItemScreen"
+            android:exported="false"
+            android:label="@string/title_activity_detail_item_screen"
+            android:theme="@style/Theme.Otakuverse" />
+        <activity
+            android:name=".ui.screens.DetailItemScreen"
+            android:exported="false"
+            android:label="@string/title_activity_detail_item_screen"
+            android:theme="@style/Theme.Otakuverse" />
+        <activity
             android:name=".ElementListFavoriteActivity"
             android:exported="false"
             android:label="@string/title_activity_element_list_favorite"
