@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,40 +27,43 @@ fun DetailScreen(anime: Anime, modifier: Modifier) {
                 Column (modifier = Modifier.padding(8.dp)) {
                     Text(
                         text = "Título Anime",
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
                         text = anime.title,
-                        style = TextStyle(fontSize = 16.sp),
+                        fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Clasificación",
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
                         text = anime.ranked.toString(),
-                        style = TextStyle(fontSize = 16.sp),
+                        fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Puntuación",
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
                     )
                     Text(
                         text = anime.score.toString(),
-                        style = TextStyle(fontSize = 16.sp),
+                        fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = "Número de episodios",
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     )
                     Text(
                         text = if (anime.number_episodes.toString() == "null") "..." else anime.number_episodes.toString(),
-                        style = TextStyle(fontSize = 16.sp),
+                        fontSize = 18.sp
                     )
                 }
             }
@@ -67,12 +71,13 @@ fun DetailScreen(anime: Anime, modifier: Modifier) {
                 Column (modifier = Modifier.padding(8.dp)) {
                     Text(
                         text = "Descripción",
-                        style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
                         text = anime.description,
-                        style = TextStyle(fontSize = 16.sp)
+                        fontSize = 18.sp
                     )
                 }
             }

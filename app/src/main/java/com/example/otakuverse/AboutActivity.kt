@@ -21,6 +21,7 @@ import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.DetailScreen
 import com.example.otakuverse.ui.screens.ElementListScreen
+import com.example.otakuverse.ui.screens.ProfileScreen
 
 class AboutActivity : ComponentActivity() {
 
@@ -62,7 +63,6 @@ class AboutActivity : ComponentActivity() {
 
 @Composable
 fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.string.about)) {
-
     val anime = Anime(
         "One Piece",
         "one_piece",
@@ -84,7 +84,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 //        )
 
         // Lista de animes
-        ElementListScreen(modifier = Modifier.padding(innerPadding))
+//        ElementListScreen(modifier = Modifier.padding(innerPadding))
 
         // Lista de animes favoritos
 //        ElementListScreen(
@@ -92,16 +92,18 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 //            modifier = Modifier.padding(innerPadding)
 //        )
 
-        // Detalles Animes
+        // Detalles Anime
 //        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
+
+        // Información del usuario
+        ProfileScreen(modifier = Modifier.padding(innerPadding))
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ScreenPreview() {
-
     OtakuverseTheme {
-        OtakuverseApp(title = stringResource(R.string.anime_list))
+        OtakuverseApp(title = stringResource(R.string.about))
     }
 }
