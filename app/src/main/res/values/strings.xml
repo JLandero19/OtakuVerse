@@ -15,4 +15,9 @@
     <string name="titleLogin">Iniciar Sesión</string>
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
+    <string name="titleAnime">Título Anime</string>
+    <string name="ranked">Clasificación</string>
+    <string name="score">Puntuación</string>
+    <string name="numEpisodes">Número de Episodios</string>
+    <string name="description">Descripción</string>
 </resources>

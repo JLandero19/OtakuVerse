@@ -79,10 +79,11 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
         topBar = { CenterAlignedTopAppBar(text = title) },
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
-//        AboutScreen(
-//            onShareButton = { onShare() },
-//            modifier = Modifier.padding(innerPadding)
-//        )
+        // Sobre Nosotros
+        AboutScreen(
+            onShareButton = { onShare() },
+            modifier = Modifier.padding(innerPadding)
+        )
 
         // Lista de animes
 //        ElementListScreen(modifier = Modifier.padding(innerPadding))
@@ -100,7 +101,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 //        ProfileScreen(modifier = Modifier.padding(innerPadding))
 
         // Iniciar sesión
-        LoginScreen(modifier = Modifier.padding(innerPadding))
+//        LoginScreen(modifier = Modifier.padding(innerPadding))
     }
 }
 
