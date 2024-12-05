@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.otakuverse.model.Anime
 import com.example.otakuverse.ui.components.AnimeCard
+import com.example.otakuverse.ui.components.CommentStandard
 
 @Composable
 fun DetailScreen(anime: Anime, modifier: Modifier) {
@@ -81,6 +82,23 @@ fun DetailScreen(anime: Anime, modifier: Modifier) {
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(10.dp))
+            Row (modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+                Column (modifier = Modifier.padding(8.dp)) {
+                    Text(
+                        text = "Comentarios",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(5.dp))
+                    CommentStandard(userName = "Javier Landero", comment = "Este anime es increible, mucha historia")
+                    CommentStandard(userName = "Carlos Méndez", comment = "Me encanta este anime, los personajes son geniales")
+                    CommentStandard(userName = "Ana López", comment = "¡Totalmente de acuerdo! La trama es muy profunda")
+                    CommentStandard()
+                }
+            }
+
+
         }
     }
 }

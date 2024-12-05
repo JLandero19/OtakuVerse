@@ -48,7 +48,7 @@ class AboutActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            OtakuverseTheme {
+            OtakuverseTheme (dynamicColor = false) {
                 OtakuverseApp(
                     onShare = { shareApp() },
                 )
@@ -76,7 +76,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 
     Scaffold(
         topBar = { CenterAlignedTopAppBar(text = title) },
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
 //        AboutScreen(
 //            onShareButton = { onShare() },
@@ -93,10 +93,10 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 //        )
 
         // Detalles Anime
-//        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
+        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
 
         // Información del usuario
-        ProfileScreen(modifier = Modifier.padding(innerPadding))
+//        ProfileScreen(modifier = Modifier.padding(innerPadding))
     }
 }
 

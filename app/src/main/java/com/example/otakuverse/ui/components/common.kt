@@ -5,7 +5,11 @@ package com.example.otakuverse.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -30,22 +34,43 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
 import com.example.otakuverse.model.Datasource
+import org.w3c.dom.Comment
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
+        modifier = modifier
+    )
+}
+
+@Composable
+fun StandardText(
+    str: String,
+    modifier: Modifier = Modifier,
+    style: TextStyle = MaterialTheme.typography.bodyMedium,
+    color: Color = MaterialTheme.colorScheme.primary,
+    fontSize: TextUnit = 25.sp
+) {
+    Text(
+        text = str,
+        style = style,
+        color = color,
+        fontSize = fontSize,
         modifier = modifier
     )
 }
@@ -121,6 +146,27 @@ fun TitleCardStandard(text: String, modifier: Modifier = Modifier) {
         textAlign = TextAlign.Center,
         modifier = modifier.padding(8.dp)
     )
+}
+
+@Composable
+fun CommentStandard(modifier: Modifier = Modifier, userName: String = "Usuario anonimo", date: String = "05-12-2024", comment: String = "No hay comentario") {
+    Row (modifier = modifier.padding(8.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Image(
+            painter = painterResource(R.drawable.user_default),
+            contentDescription = stringResource(R.string.image_user),
+            modifier = Modifier.clip(shape = CircleShape).size(60.dp),
+            contentScale = ContentScale.Crop,
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Column {
+            Row (verticalAlignment = Alignment.CenterVertically) {
+                StandardText(userName, style = MaterialTheme.typography.titleLarge, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(15.dp))
+                StandardText("Última modficación: $date", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.secondary, fontSize = 10.sp)
+            }
+            StandardText(comment, style = MaterialTheme.typography.bodyMedium, fontSize = 12.sp)
+        }
+    }
 }
 
 @Composable
