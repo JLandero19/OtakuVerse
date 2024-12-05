@@ -12,4 +12,7 @@
     <string name="detail_anime">Detalle Anime</string>
     <string name="image_user">Imagen de perfil</string>
     <string name="profile_information">Perfil de Usuario</string>
+    <string name="titleLogin">Iniciar Sesión</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="password">Contraseña</string>
 </resources>

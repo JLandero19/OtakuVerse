@@ -21,6 +21,7 @@ import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.DetailScreen
 import com.example.otakuverse.ui.screens.ElementListScreen
+import com.example.otakuverse.ui.screens.LoginScreen
 import com.example.otakuverse.ui.screens.ProfileScreen
 
 class AboutActivity : ComponentActivity() {
@@ -93,10 +94,13 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 //        )
 
         // Detalles Anime
-        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
+//        DetailScreen(anime, modifier = Modifier.padding(innerPadding))
 
         // Información del usuario
 //        ProfileScreen(modifier = Modifier.padding(innerPadding))
+
+        // Iniciar sesión
+        LoginScreen(modifier = Modifier.padding(innerPadding))
     }
 }
 
