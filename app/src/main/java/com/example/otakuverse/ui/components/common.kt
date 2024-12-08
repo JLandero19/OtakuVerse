@@ -157,8 +157,15 @@ fun TitleCardStandard(text: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun CommentStandard(modifier: Modifier = Modifier, userName: String = "Usuario anonimo", date: String = "05-12-2024", comment: String = "No hay comentario") {
-    Row (modifier = modifier.padding(8.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+fun CommentStandard(
+    modifier: Modifier = Modifier,
+    userName: String = "Usuario anonimo",
+    date: String = "05-12-2024",
+    comment: String = "No hay comentario"
+) {
+    Row (modifier = modifier.padding(8.dp).fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Image(
             painter = painterResource(R.drawable.user_default),
             contentDescription = stringResource(R.string.image_user),
@@ -168,11 +175,22 @@ fun CommentStandard(modifier: Modifier = Modifier, userName: String = "Usuario a
         Spacer(modifier = Modifier.width(10.dp))
         Column {
             Row (verticalAlignment = Alignment.CenterVertically) {
-                StandardText(userName, style = MaterialTheme.typography.titleLarge, fontSize = 16.sp)
+                StandardText(
+                    userName,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontSize = 16.sp
+                )
                 Spacer(modifier = Modifier.width(15.dp))
-                StandardText("Última modficación: $date", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.secondary, fontSize = 10.sp)
+                StandardText(
+                    "Última modficación: $date",
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.secondary,
+                    fontSize = 10.sp)
             }
-            StandardText(comment, style = MaterialTheme.typography.bodyMedium, fontSize = 12.sp)
+            StandardText(
+                comment,
+                style = MaterialTheme.typography.bodyMedium, fontSize = 12.sp
+            )
         }
     }
 }

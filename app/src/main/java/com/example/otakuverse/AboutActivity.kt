@@ -52,6 +52,7 @@ class AboutActivity : ComponentActivity() {
             OtakuverseTheme (dynamicColor = false) {
                 OtakuverseApp(
                     onShare = { shareApp() },
+//                    title = stringResource(R.string.titleLogin)
                 )
             }
         }
