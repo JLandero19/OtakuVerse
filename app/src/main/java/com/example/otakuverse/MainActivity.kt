@@ -72,17 +72,6 @@ class AboutActivity : ComponentActivity() {
 
 @Composable
 fun OtakuverseApp(onShare: () -> Unit = {}) {
-    val anime = Anime(
-        "One Piece",
-        "one_piece",
-        2,
-        8.71F,
-        null,
-        "Oct 1999 -",
-        "One Piece narra la historia de un joven llamado Monkey D. Luffy, que inspirado por su amigo pirata Shanks, comienza un viaje para alcanzar su sueño, ser el Rey de los piratas, para lo cual deberá encontrar el tesoro One Piece dejado por el anterior rey de los piratas Gol D. Roger.",
-        true
-    )
-
     // NavController
     val navController = rememberNavController()
 

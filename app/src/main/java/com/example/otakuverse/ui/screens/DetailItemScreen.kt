@@ -37,7 +37,7 @@ fun DetailScreen(animeText: String, modifier: Modifier, navController: NavHostCo
                 WindowWidthSizeClass.Compact -> {
                     anime?.let { CompactDetailScreen(it, navController) }
                 }
-                else -> anime?.let { CompactDetailScreen(it, navController) }
+                else -> anime?.let { MedExpDetailScreen(it, navController) }
             }
         }
     }
