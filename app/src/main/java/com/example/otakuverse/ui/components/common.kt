@@ -61,14 +61,6 @@ import com.example.otakuverse.model.Datasource
 import org.w3c.dom.Comment
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Composable
 fun StandardText(
     str: String,
     modifier: Modifier = Modifier,
