@@ -18,13 +18,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.ui.components.PasswordTextField
 import com.example.otakuverse.ui.components.StandardText
 import com.example.otakuverse.ui.components.StandardTextField
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
+fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     LazyColumn (modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         item {
             StandardText(str = stringResource(R.string.titleLogin), style = MaterialTheme.typography.titleLarge, fontSize = 40.sp)

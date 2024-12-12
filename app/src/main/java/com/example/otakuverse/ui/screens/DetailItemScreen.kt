@@ -19,6 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
 import com.example.otakuverse.ui.components.AnimeCard
@@ -26,21 +27,22 @@ import com.example.otakuverse.ui.components.CommentStandard
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @Composable
-fun DetailScreen(anime: Anime, modifier: Modifier) {
+fun DetailScreen(anime: Anime, modifier: Modifier, navController: NavHostController) {
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     LazyColumn(modifier = modifier) {
         item {
             when (windowSize) {
-                WindowWidthSizeClass.Compact -> { CompactDetailScreen(anime) }
-                else -> { MedExpDetailScreen(anime) }
+                WindowWidthSizeClass.Compact -> { CompactDetailScreen(anime, navController) }
+                else -> { MedExpDetailScreen(anime, navController) }
             }
         }
     }
 }
 
 @Composable
-fun CompactDetailScreen(anime: Anime) {
+fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
+        // Queda programar el onClicCard
         AnimeCard(anime, modifier = Modifier.width(200.dp).height(300.dp))
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
@@ -117,7 +119,7 @@ fun CompactDetailScreen(anime: Anime) {
 }
 
 @Composable
-fun MedExpDetailScreen(anime: Anime) {
+fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
         Column (modifier = Modifier.weight(1f)) {
             Row {

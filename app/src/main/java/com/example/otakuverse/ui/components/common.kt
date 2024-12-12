@@ -280,13 +280,13 @@ fun ImageAnime(
 }
 
 @Composable
-fun AnimeCard(anime: Anime, modifier: Modifier = Modifier) {
+fun AnimeCard(anime: Anime, modifier: Modifier = Modifier, onClickCard: () -> Unit = {}) {
     Card(
         modifier = modifier
             .padding(8.dp),
 
         shape = MaterialTheme.shapes.large,
-        onClick = {}
+        onClick = onClickCard
     ) {
         // Imagen del anime
         ImageAnime(

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.utils.getWindowSizeClass
@@ -19,6 +20,7 @@ import com.example.otakuverse.utils.getWindowSizeClass
 @Composable
 fun ElementListScreen(
     modifier: Modifier = Modifier,
+    navController: NavHostController,
     favorite: Boolean = false
 ) {
     val animes = if (!favorite) Datasource.getListXtimes(1) else Datasource.getAnimesFavorite()
@@ -38,7 +40,7 @@ fun ElementListScreen(
             contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
         ) {
             items(animeList) { anime ->
-                AnimeCard(anime)
+                AnimeCard(anime, onClickCard = { navController.navigate("details/${anime.title}") })
             }
         }
     }

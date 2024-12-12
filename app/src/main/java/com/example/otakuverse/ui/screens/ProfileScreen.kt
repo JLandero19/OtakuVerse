@@ -33,11 +33,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostController) {
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     LazyColumn (
         modifier = modifier.fillMaxSize().padding(25.dp),

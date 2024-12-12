@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.components.TitlePageStandard
@@ -26,7 +27,8 @@ import com.example.otakuverse.ui.components.TitlePageStandard
 @Composable
 fun AboutScreen(
     onShareButton : () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     LazyColumn (
         verticalArrangement = Arrangement.Center,
