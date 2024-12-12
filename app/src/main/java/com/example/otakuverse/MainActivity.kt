@@ -60,7 +60,6 @@ class AboutActivity : ComponentActivity() {
             OtakuverseTheme (dynamicColor = false) {
                 OtakuverseApp(
                     onShare = { shareApp() },
-//                    title = stringResource(R.string.titleLogin)
                 )
             }
         }
@@ -72,7 +71,7 @@ class AboutActivity : ComponentActivity() {
 }
 
 @Composable
-fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.string.about)) {
+fun OtakuverseApp(onShare: () -> Unit = {}) {
     val anime = Anime(
         "One Piece",
         "one_piece",
@@ -93,7 +92,13 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
         .collectAsState(initial = null)
 
     Scaffold(
-        topBar = { CenterAlignedTopAppBar(text = title) },
+        topBar = {
+            CenterAlignedTopAppBar(
+                text = stringResource(R.string.app_name),
+                navController = navController,
+                currentRouteInfo = currentRoute
+            )
+        },
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             /* Aquí puedes agregar lógica dinámica para la bottom bar */
@@ -127,7 +132,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
                 // Por si no encuentra el heroe se pone ?: ""
                 val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
                 // Detalles Anime
-                DetailScreen(anime, modifier = Modifier.padding(innerPadding), navController = navController)
+                DetailScreen(itemId.toString(), modifier = Modifier.padding(innerPadding), navController = navController)
             }
             composable("profile") {
                 // Información del usuario
@@ -154,6 +159,6 @@ fun OtakuverseApp(onShare: () -> Unit = {}, title: String = stringResource(R.str
 @Composable
 fun ScreenPreview() {
     OtakuverseTheme {
-        OtakuverseApp(title = stringResource(R.string.about))
+        OtakuverseApp()
     }
 }

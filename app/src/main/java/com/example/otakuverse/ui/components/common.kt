@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.twotone.Favorite
@@ -53,6 +54,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
 import com.example.otakuverse.model.Datasource
@@ -96,7 +98,7 @@ fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
 
 // Esta función me crea un TopBar básico
 @Composable
-fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title)) {
+fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title), navController: NavHostController, currentRouteInfo: String? = "") {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -119,14 +121,16 @@ fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title)) {
             )
         },
         // Icono de navegación
-//        navigationIcon = {
-//            IconButton(onClick = { /* do something */ }) {
-//                Icon(
-//                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-//                    contentDescription = "Volver a la pantalla anterior",
-//                )
-//            }
-//        },
+        navigationIcon = {
+            if (currentRouteInfo?.startsWith("details/") == true) {
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Volver a la pantalla anterior",
+                    )
+                }
+            }
+        },
         // Icono de acción
         actions = {
             IconButton(onClick = { /* do something */ }) {

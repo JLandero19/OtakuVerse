@@ -22,18 +22,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
+import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.ui.components.CommentStandard
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @Composable
-fun DetailScreen(anime: Anime, modifier: Modifier, navController: NavHostController) {
+fun DetailScreen(animeText: String, modifier: Modifier, navController: NavHostController) {
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
+    var anime = Datasource.getAnimeByTitle(animeText)
     LazyColumn(modifier = modifier) {
         item {
             when (windowSize) {
-                WindowWidthSizeClass.Compact -> { CompactDetailScreen(anime, navController) }
-                else -> { MedExpDetailScreen(anime, navController) }
+                WindowWidthSizeClass.Compact -> {
+                    anime?.let { CompactDetailScreen(it, navController) }
+                }
+                else -> anime?.let { CompactDetailScreen(it, navController) }
             }
         }
     }

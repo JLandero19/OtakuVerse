@@ -117,7 +117,9 @@ object Datasource {
                 "La obra sigue las aventuras de Tanjirō Kamado, un adolescente cuya familia fue cruelmente asesinada por un Demonio el cual convirtió a su hermana Nezuko en una de estas criaturas, obligando a Tanjirō a emprender un viaje para cazar a estos seres y de paso ayudar a su hermana a recuperar su humanidad.",
                 true
             ),
-        ).apply { shuffle() }
+        ).apply {
+//            shuffle()
+        }
     }
 
     // Genera una lista larga de elementos
@@ -126,7 +128,7 @@ object Datasource {
         for (i in 1..times) {
             list.addAll(topAnimeList())
         }
-        list.shuffle()
+//        list.shuffle()
         list
     }
 
