@@ -12,17 +12,24 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.otakuverse.R
 
 @Composable
-fun BottomNavigationBar(navController: NavController, currentRoute: String?) {
+fun BottomNavigationBar(
+    navController: NavController,
+    currentRoute: String?,
+    sesion: Boolean
+) {
     NavigationBar {
         val items = listOf(
-            BottomNavItem("anime_list", Icons.AutoMirrored.Filled.List, "Animes"),
-            BottomNavItem("login", Icons.Default.AccountCircle, "Login"),
-            BottomNavItem("fav_anime_list", Icons.Default.Favorite, "Favoritos"),
+            BottomNavItem("anime_list", Icons.AutoMirrored.Filled.List, stringResource(R.string.bottom_bar_anime)),
+            BottomNavItem("fav_anime_list", Icons.Default.Favorite, stringResource(R.string.bottom_bar_favorite)),
 
-            BottomNavItem("profile", Icons.Default.Person, "Perfil"),
+            if (sesion) BottomNavItem("profile", Icons.Default.Person, stringResource(R.string.bottom_bar_profile))
+            else BottomNavItem("login", Icons.Default.AccountCircle, stringResource(R.string.bottom_bar_login)),
+
             BottomNavItem("about", Icons.Default.Info, "Info")
         )
         items.forEach { item ->

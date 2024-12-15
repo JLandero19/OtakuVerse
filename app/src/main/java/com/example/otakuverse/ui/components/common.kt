@@ -92,6 +92,7 @@ fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
 fun CenterAlignedTopAppBar(
     text: String = stringResource(R.string.title),
     navController: NavHostController,
+    sesion: Boolean,
     currentRouteInfo: String? = "",
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
@@ -133,9 +134,15 @@ fun CenterAlignedTopAppBar(
             ) {
                 Icon(imageVector = Icons.Filled.Search, contentDescription = "Buscar")
             }
-            IconButton(onClick = { /* do something */ }) {
+            IconButton(onClick = {
+                if (sesion) {
+                    navController.navigate("profile")
+                } else {
+                    navController.navigate("login")
+                }
+            }) {
                 Image(
-                    painter = painterResource(R.drawable.ace_perfil),
+                    painter = if (sesion) painterResource(R.drawable.ace_perfil) else painterResource(R.drawable.user_default),
                     contentDescription = stringResource(R.string.image_user),
                     modifier = Modifier.clip(shape = CircleShape),
                     contentScale = ContentScale.Crop

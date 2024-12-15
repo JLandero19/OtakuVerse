@@ -23,4 +23,11 @@
     <string name="description">Descripción</string>
     <string name="delete_fav_anime_title">Eliminar de favoritos</string>
     <string name="delete_fav_anime_text">¿Estás seguro de eliminar %s?</string>
+    <string name="text_button_edit_profile">Editar Perfil</string>
+    <string name="logout_button">Cerrar Sesión</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="bottom_bar_anime">Animes</string>
+    <string name="bottom_bar_favorite">Favoritos</string>
+    <string name="bottom_bar_profile">Perfil</string>
+    <string name="bottom_bar_login">Login</string>
 </resources>

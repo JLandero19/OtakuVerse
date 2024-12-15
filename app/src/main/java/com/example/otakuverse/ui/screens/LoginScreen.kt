@@ -25,7 +25,11 @@ import com.example.otakuverse.ui.components.StandardText
 import com.example.otakuverse.ui.components.StandardTextField
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    onClickSesion: () -> Unit
+) {
     LazyColumn (modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         item {
             StandardText(str = stringResource(R.string.titleLogin), style = MaterialTheme.typography.titleLarge, fontSize = 40.sp)
@@ -34,7 +38,7 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavHostController)
             Spacer(modifier = Modifier.height(10.dp))
             PasswordTextField(stringResource(R.string.password), { Icon(imageVector = Icons.TwoTone.Lock, tint = MaterialTheme.colorScheme.primary, contentDescription = stringResource(R.string.username)) })
             Spacer(modifier = Modifier.height(10.dp))
-            Button(onClick = { /* code... */ }) {
+            Button(onClick = onClickSesion) {
                 Text(stringResource(R.string.titleLogin), style = MaterialTheme.typography.bodyMedium)
             }
         }

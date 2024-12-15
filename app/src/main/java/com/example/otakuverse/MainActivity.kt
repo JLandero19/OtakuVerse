@@ -78,6 +78,7 @@ class AboutActivity : ComponentActivity() {
 fun OtakuverseApp(onShare: () -> Unit = {}) {
     // Solo tenemos una lista
     var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
+    var profile by remember { mutableStateOf(false) }
 
     // NavController
     val navController = rememberNavController()
@@ -92,14 +93,19 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
             CenterAlignedTopAppBar(
                 text = stringResource(R.string.app_name),
                 navController = navController,
-                currentRouteInfo = currentRoute
+                currentRouteInfo = currentRoute,
+                sesion = profile
             )
         },
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             /* Aquí puedes agregar lógica dinámica para la bottom bar */
             if (currentRoute?.startsWith("details/") == false) {
-                BottomNavigationBar(navController, currentRoute)
+                BottomNavigationBar(
+                    navController = navController,
+                    currentRoute = currentRoute,
+                    sesion = profile
+                )
             }
         },
     ) { innerPadding ->
@@ -163,11 +169,26 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
             }
             composable("profile") {
                 // Información del usuario
-                ProfileScreen(modifier = Modifier.padding(innerPadding), navController = navController)
+                ProfileScreen(
+                    modifier = Modifier.padding(innerPadding),
+                    navController = navController,
+                    sesion = profile,
+                    onClickSesion = {
+                        profile = !profile
+                        navController.navigate("login")
+                    }
+                )
             }
             composable("login") {
                 // Iniciar sesión
-                LoginScreen(modifier = Modifier.padding(innerPadding), navController = navController)
+                LoginScreen(
+                    modifier = Modifier.padding(innerPadding),
+                    navController = navController,
+                    onClickSesion = {
+                        profile = !profile
+                        navController.navigate("profile")
+                    }
+                )
             }
             composable("about") {
                 // Sobre Nosotros

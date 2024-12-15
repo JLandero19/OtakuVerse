@@ -22,4 +22,11 @@
     <string name="description">Description</string>
     <string name="delete_fav_anime_title">Delete from favorites</string>
     <string name="delete_fav_anime_text">Are you sure to delete %s?</string>
+    <string name="text_button_edit_profile">Edit Profile</string>
+    <string name="logout_button">Logout</string>
+    <string name="login_button">Login</string>
+    <string name="bottom_bar_anime">Animes</string>
+    <string name="bottom_bar_favorite">Favorites</string>
+    <string name="bottom_bar_profile">Profile</string>
+    <string name="bottom_bar_login">Login</string>
 </resources>

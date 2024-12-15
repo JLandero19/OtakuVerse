@@ -1,6 +1,7 @@
 package com.example.otakuverse.ui.screens
 
 import android.app.Activity
+import android.service.autofill.OnClickAction
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,20 +39,33 @@ import com.example.otakuverse.R
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier, navController: NavHostController) {
+fun ProfileScreen(
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
+    sesion: Boolean,
+    onClickSesion: () -> Unit
+) {
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     LazyColumn (
         modifier = modifier.fillMaxSize().padding(25.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            InformationUser(windowSize)
+            InformationUser(
+                windowSize,
+                onClickSesion = onClickSesion,
+                sesion = sesion
+            )
         }
     }
 }
 
 @Composable
-fun InformationUser(windowSize: WindowWidthSizeClass) {
+fun InformationUser(
+    windowSize: WindowWidthSizeClass,
+    sesion: Boolean,
+    onClickSesion: () -> Unit
+) {
     when (windowSize) {
         WindowWidthSizeClass.Compact -> {
             Image(
@@ -93,7 +107,7 @@ fun InformationUser(windowSize: WindowWidthSizeClass) {
                     Text("Editar Perfil", style = MaterialTheme.typography.bodyMedium)
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = { /* code... */ }) {
+                Button(onClick = onClickSesion) {
                     Text("Cerrar sesión", style = MaterialTheme.typography.bodyMedium)
                 }
             }
@@ -136,12 +150,19 @@ fun InformationUser(windowSize: WindowWidthSizeClass) {
                     Spacer(modifier = Modifier.height(20.dp))
                     Row {
                         Button(onClick = { /* code... */ }) {
-                            Text("Editar Perfil", style = MaterialTheme.typography.bodyMedium)
+                            Text(stringResource(R.string.text_button_edit_profile), style = MaterialTheme.typography.bodyMedium)
                         }
                         Spacer(modifier = Modifier.width(10.dp))
-                        Button(onClick = { /* code... */ }) {
-                            Text("Cerrar sesión", style = MaterialTheme.typography.bodyMedium)
+                        if (sesion) {
+                            Button(onClick = onClickSesion) {
+                                Text(stringResource(R.string.logout_button), style = MaterialTheme.typography.bodyMedium)
+                            }
+                        } else {
+                            Button(onClick = onClickSesion) {
+                                Text(stringResource(R.string.login_button), style = MaterialTheme.typography.bodyMedium)
+                            }
                         }
+
                     }
                 }
             }
