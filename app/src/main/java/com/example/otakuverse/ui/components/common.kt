@@ -19,10 +19,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.FavoriteBorder
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,6 +31,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -49,7 +50,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -58,7 +58,6 @@ import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
 import com.example.otakuverse.model.Datasource
-import org.w3c.dom.Comment
 
 @Composable
 fun StandardText(
@@ -90,7 +89,11 @@ fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
 
 // Esta función me crea un TopBar básico
 @Composable
-fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title), navController: NavHostController, currentRouteInfo: String? = "") {
+fun CenterAlignedTopAppBar(
+    text: String = stringResource(R.string.title),
+    navController: NavHostController,
+    currentRouteInfo: String? = "",
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     CenterAlignedTopAppBar(
@@ -125,6 +128,11 @@ fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title), navCon
         },
         // Icono de acción
         actions = {
+            IconButton(
+                onClick = {  }
+            ) {
+                Icon(imageVector = Icons.Filled.Search, contentDescription = "Buscar")
+            }
             IconButton(onClick = { /* do something */ }) {
                 Image(
                     painter = painterResource(R.drawable.ace_perfil),
@@ -139,18 +147,18 @@ fun CenterAlignedTopAppBar(text: String = stringResource(R.string.title), navCon
     )
 }
 
-@Composable
-fun TitleCardStandard(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        fontWeight = FontWeight.Bold,
-        fontSize = 25.sp,
-        color = MaterialTheme.colorScheme.onPrimary,
-        style = MaterialTheme.typography.titleSmall,
-        textAlign = TextAlign.Center,
-        modifier = modifier.padding(8.dp)
-    )
-}
+//@Composable
+//fun TitleCardStandard(text: String, modifier: Modifier = Modifier) {
+//    Text(
+//        text = text,
+//        fontWeight = FontWeight.Bold,
+//        fontSize = 25.sp,
+//        color = MaterialTheme.colorScheme.onPrimary,
+//        style = MaterialTheme.typography.titleSmall,
+//        textAlign = TextAlign.Center,
+//        modifier = modifier.padding(8.dp)
+//    )
+//}
 
 @Composable
 fun CommentStandard(
@@ -195,12 +203,12 @@ fun CommentStandard(
 fun ImageAnime(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
-//    title: String = "",
     drawable: Int,
     contentDesc: String = "",
     favorite: Boolean = false,
     height: Int = 0,
-    width: Int = 0
+    width: Int = 0,
+    onClickFav: () -> Unit = {}
 ) {
     val contentDescription =
         if (contentDesc == "")
@@ -221,7 +229,7 @@ fun ImageAnime(
             // Botón de acción con ícono
             // Botón de acción con ícono
             IconButton(
-                onClick = { /* Acción futura, como mostrar más información del héroe */ },
+                onClick = onClickFav,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(6.dp)
@@ -234,7 +242,7 @@ fun ImageAnime(
                     imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
                     modifier = Modifier.size(24.dp),
                     contentDescription = stringResource(R.string.favorite),
-                    tint = MaterialTheme.colorScheme.error
+                    tint = MaterialTheme.colorScheme.error,
                 )
             }
 //            TitleCardStandard(
@@ -255,7 +263,7 @@ fun ImageAnime(
 
             // Botón de acción con ícono
             IconButton(
-                onClick = { /* Acción futura, como mostrar más información del héroe */ },
+                onClick = onClickFav,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(6.dp)
@@ -268,7 +276,7 @@ fun ImageAnime(
                     imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
                     modifier = Modifier.size(24.dp),
                     contentDescription = stringResource(R.string.favorite),
-                    tint = MaterialTheme.colorScheme.error
+                    tint = MaterialTheme.colorScheme.error,
                 )
             }
         }
@@ -276,11 +284,15 @@ fun ImageAnime(
 }
 
 @Composable
-fun AnimeCard(anime: Anime, modifier: Modifier = Modifier, onClickCard: () -> Unit = {}) {
+fun AnimeCard(
+    anime: Anime,
+    modifier: Modifier = Modifier,
+    onClickCard: () -> Unit = {},
+    onClickFav: () -> Unit = {}
+) {
     Card(
         modifier = modifier
             .padding(8.dp),
-
         shape = MaterialTheme.shapes.large,
         onClick = onClickCard
     ) {
@@ -289,7 +301,8 @@ fun AnimeCard(anime: Anime, modifier: Modifier = Modifier, onClickCard: () -> Un
             modifier = Modifier.fillMaxSize().height(250.dp),
             drawable = Datasource.getDrawableIdByName(anime.image_url),
 //            title = anime.title,
-            favorite = anime.favorite
+            favorite = anime.favorite,
+            onClickFav = onClickFav
         )
     }
 }
@@ -322,4 +335,40 @@ fun PasswordTextField(label: String, leadingIcon: @Composable () -> Unit = {}) {
     )
 }
 
-
+@Composable
+fun StandardAlertDialog(
+    onDismissRequest: () -> Unit,
+    onConfirmation: () -> Unit,
+    dialogTitle: String,
+    dialogText: String,
+) {
+    AlertDialog(
+        title = {
+            Text(text = dialogTitle)
+        },
+        text = {
+            Text(text = dialogText)
+        },
+        onDismissRequest = {
+            onDismissRequest()
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onConfirmation()
+                }
+            ) {
+                Text("Confirm")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    onDismissRequest()
+                }
+            ) {
+                Text("Cancel")
+            }
+        }
+    )
+}

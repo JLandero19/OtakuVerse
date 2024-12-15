@@ -10,10 +10,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,10 +23,11 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.otakuverse.model.Anime
+import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.ui.components.BottomNavigationBar
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
+import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.DetailScreen
 import com.example.otakuverse.ui.screens.ElementListScreen
@@ -70,8 +73,12 @@ class AboutActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("MutableCollectionMutableState")
 @Composable
 fun OtakuverseApp(onShare: () -> Unit = {}) {
+    // Solo tenemos una lista
+    var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
+
     // NavController
     val navController = rememberNavController()
 
@@ -106,15 +113,46 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                 // Lista de animes
                 ElementListScreen(
                     modifier = Modifier.padding(innerPadding),
-                    navController = navController
+                    navController = navController,
+                    listAnime = animes,
+                    onFavClicked = { anime ->
+                        // Actualiza el estado de favorito del anime que recibe por parametro
+                        val updatedAnimes = animes.map {
+                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
+                            if (it.title == anime.title) {
+                                // Cambia el atributo de favorito
+                                it.copy(favorite = !it.favorite)
+                            } else {
+                                // En caso de no sea igual devuelve el iterador
+                                it
+                            }
+                        }
+                        // Actualiza la lista de Animes
+                        animes = updatedAnimes.toMutableList() // Actualiza la lista
+                    }
                 )
             }
             composable("fav_anime_list") {
                 // Lista de animes favoritos
                 ElementListScreen(
-                    favorite = true,
                     modifier = Modifier.padding(innerPadding),
-                    navController = navController
+                    navController = navController,
+                    listAnime = animes.filter { it.favorite }.toMutableList(),
+                    onFavClicked = { anime ->
+                        // Actualiza el estado de favorito del anime que recibe por parametro
+                        val updatedAnimes = animes.map {
+                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
+                            if (it.title == anime.title) {
+                                // Cambia el atributo de favorito
+                                it.copy(favorite = !it.favorite)
+                            } else {
+                                // En caso de no sea igual devuelve el iterador
+                                it
+                            }
+                        }
+                        // Actualiza la lista de Animes
+                        animes = updatedAnimes.toMutableList() // Actualiza la lista
+                    }
                 )
             }
             composable("details/{itemId}") { backStackEntry ->

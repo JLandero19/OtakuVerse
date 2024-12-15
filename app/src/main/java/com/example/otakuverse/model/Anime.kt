@@ -9,5 +9,5 @@ data class Anime(
     val number_episodes: String?,
     val aired_on: String,
     val description: String = "",
-    val favorite: Boolean = false
+    var favorite: Boolean = false
 )
