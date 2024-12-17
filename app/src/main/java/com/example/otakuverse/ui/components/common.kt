@@ -94,6 +94,7 @@ fun CenterAlignedTopAppBar(
     navController: NavHostController,
     sesion: Boolean,
     currentRouteInfo: String? = "",
+    onClickSearch: () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -130,9 +131,9 @@ fun CenterAlignedTopAppBar(
         // Icono de acción
         actions = {
             IconButton(
-                onClick = {  }
+                onClick = onClickSearch
             ) {
-                Icon(imageVector = Icons.Filled.Search, contentDescription = "Buscar")
+                Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.search))
             }
             IconButton(onClick = {
                 if (sesion) {

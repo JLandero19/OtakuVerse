@@ -30,4 +30,6 @@
     <string name="bottom_bar_favorite">Favoritos</string>
     <string name="bottom_bar_profile">Perfil</string>
     <string name="bottom_bar_login">Login</string>
+    <string name="search">Search</string>
+    <string name="close_icon">Close Icon</string>
 </resources>

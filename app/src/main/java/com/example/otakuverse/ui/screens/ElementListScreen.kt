@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +34,7 @@ fun ElementListScreen(
 ) {
     var myAnime by remember { mutableStateOf("") }
     var openAlertDialog by remember { mutableStateOf(false) }
+
 
     // Dialog borrado de lista de favoritos.
     if (openAlertDialog) {
