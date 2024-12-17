@@ -63,9 +63,7 @@ fun StandardSearchBar(
         tonalElevation = 8.dp, // sombra cuando el SearchBar está expandido
         shadowElevation = 4.dp, // sombra cuando el SearchBar no está expandido
         windowInsets = WindowInsets.systemBars.only(WindowInsetsSides.Top), // ajusta el SearchBar a las barras del sistema
-        content = {
-
-        },
+        content = {},
         expanded = expanded,
         colors = SearchBarDefaults.colors(
             dividerColor = MaterialTheme.colorScheme.background

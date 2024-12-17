@@ -119,7 +119,7 @@ fun CompactDetailScreen(
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Puntuación",
+                text = stringResource(R.string.score),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )

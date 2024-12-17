@@ -82,6 +82,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
     var profile by remember { mutableStateOf(false) }
     var animeList by remember { mutableStateOf(animes) }
     var showSearchBar by remember { mutableStateOf(false) }
+    var textValue = ""
 
     // NavController
     val navController = rememberNavController()
@@ -102,6 +103,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                         if (!showSearchBar) animeList = animes
                     },
                     onSearchText = { text ->
+                        textValue = text
                         animeList = if (text.trimIndent().isNotEmpty()) {
                             animes.filter { it.title.contains(text, ignoreCase = true) } as MutableList<Anime>
                         } else {
@@ -117,7 +119,6 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                     sesion = profile,
                     onClickSearch = {
                         showSearchBar = !showSearchBar
-
                     }
                 )
             }
@@ -184,6 +185,14 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                         // Actualiza la lista de Animes
                         animes = updatedAnimes.toMutableList() // Actualiza la lista
                         animeList = animes
+                        // Esto se utiliza para controlar el buscador
+                        if (textValue != "") {
+                            animeList = if (textValue.trimIndent().isNotEmpty()) {
+                                animes.filter { it.title.contains(textValue, ignoreCase = true) } as MutableList<Anime>
+                            } else {
+                                animes
+                            }
+                        }
                     }
                 )
             }
