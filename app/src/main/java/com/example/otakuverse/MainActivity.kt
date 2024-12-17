@@ -192,9 +192,25 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                 val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
                 // Detalles Anime
                 DetailScreen(
-                    itemId,
+                    animeList.find { it.title == itemId }!!,
                     modifier = Modifier.padding(innerPadding),
-                    navController = navController
+//                    navController = navController,
+                    onFavClicked = { anime ->
+                        // Actualiza el estado de favorito del anime que recibe por parametro
+                        val updatedAnimes = animes.map {
+                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
+                            if (it.title == anime.title) {
+                                // Cambia el atributo de favorito
+                                it.copy(favorite = !it.favorite)
+                            } else {
+                                // En caso de no sea igual devuelve el iterador
+                                it
+                            }
+                        }
+                        // Actualiza la lista de Animes
+                        animes = updatedAnimes.toMutableList() // Actualiza la lista
+                        animeList = animes
+                    }
                 )
             }
             composable("profile") {

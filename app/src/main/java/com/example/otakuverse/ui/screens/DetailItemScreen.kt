@@ -12,6 +12,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -19,35 +23,78 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
-import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.ui.components.CommentStandard
+import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @Composable
-fun DetailScreen(animeText: String, modifier: Modifier, navController: NavHostController) {
+fun DetailScreen(
+    anime: Anime,
+    modifier: Modifier,
+//    navController: NavHostController,
+    onFavClicked: (Anime) -> Unit = {}
+) {
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
-    var anime = Datasource.getAnimeByTitle(animeText)
     LazyColumn(modifier = modifier) {
         item {
             when (windowSize) {
                 WindowWidthSizeClass.Compact -> {
-                    anime?.let { CompactDetailScreen(it, navController) }
+                    CompactDetailScreen(
+                        anime,
+//                        navController,
+                        onFavClick = onFavClicked)
                 }
-                else -> anime?.let { MedExpDetailScreen(it, navController) }
+                else -> {
+                    MedExpDetailScreen(
+                        anime,
+//                        navController,
+                        onFavClick = onFavClicked
+                    )
+                }
+
             }
         }
     }
 }
 
 @Composable
-fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
+fun CompactDetailScreen(
+    anime: Anime,
+//    navController: NavHostController,
+    onFavClick: (Anime) -> Unit = {}
+) {
+    var openAlertDialog by remember { mutableStateOf(false) }
+
+    // Dialog borrado de lista de favoritos.
+    if (openAlertDialog) {
+        StandardAlertDialog(
+            dialogTitle = stringResource(R.string.delete_fav_anime_title),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title),
+            onConfirmation = {
+                openAlertDialog = false
+                anime.favorite = !anime.favorite
+            },
+            onDismissRequest = { openAlertDialog = false }
+        )
+    }
+
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
         // Queda programar el onClicCard
-        AnimeCard(anime, modifier = Modifier.width(200.dp).height(300.dp))
+        AnimeCard(
+            anime,
+            modifier = Modifier.width(200.dp).height(300.dp),
+            onClickFav = {
+                if (!anime.favorite) {
+                    onFavClick(anime)
+                } else {
+                    // Solo lo quiero utilizar para eliminar
+                    openAlertDialog = true
+                }
+            }
+        )
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.anime_title),
@@ -123,11 +170,40 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
 }
 
 @Composable
-fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
+fun MedExpDetailScreen(
+    anime: Anime,
+//    navController: NavHostController,
+    onFavClick: (Anime) -> Unit = {}
+) {
+    var openAlertDialog by remember { mutableStateOf(false) }
+
+    // Dialog borrado de lista de favoritos.
+    if (openAlertDialog) {
+        StandardAlertDialog(
+            dialogTitle = stringResource(R.string.delete_fav_anime_title),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title),
+            onConfirmation = {
+                openAlertDialog = false
+                anime.favorite = !anime.favorite
+            },
+            onDismissRequest = { openAlertDialog = false }
+        )
+    }
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
         Column (modifier = Modifier.weight(1f)) {
             Row {
-                AnimeCard(anime, modifier = Modifier.width(200.dp).height(300.dp))
+                AnimeCard(
+                    anime,
+                    modifier = Modifier.width(200.dp).height(300.dp),
+                    onClickFav = {
+                        if (!anime.favorite) {
+                            onFavClick(anime)
+                        } else {
+                            // Solo lo quiero utilizar para eliminar
+                            openAlertDialog = true
+                        }
+                    }
+                )
                 Column (modifier = Modifier.padding(8.dp)) {
                     Text(
                         text = stringResource(R.string.anime_title),
