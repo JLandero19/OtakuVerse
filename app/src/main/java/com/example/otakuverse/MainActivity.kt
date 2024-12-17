@@ -98,6 +98,8 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                 StandardSearchBar(
                     onClickClearSearch = {
                         showSearchBar = !showSearchBar
+                        // Resetea el buscador
+                        if (!showSearchBar) animeList = animes
                     },
                     onSearchText = { text ->
                         animeList = if (text.trimIndent().isNotEmpty()) {
@@ -115,6 +117,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                     sesion = profile,
                     onClickSearch = {
                         showSearchBar = !showSearchBar
+
                     }
                 )
             }
