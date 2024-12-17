@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.example.otakuverse
 
 import android.annotation.SuppressLint
@@ -9,22 +7,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarColors
-import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,7 +19,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -44,7 +28,6 @@ import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.ui.components.BottomNavigationBar
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
-import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.ui.components.StandardSearchBar
 import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.DetailScreen
@@ -110,16 +93,17 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
 
     Scaffold(
         topBar = {
+            // Controlamos la topBar y si debe aparecer el buscador o no
             if (showSearchBar) {
                 StandardSearchBar(
                     onClickClearSearch = {
                         showSearchBar = !showSearchBar
                     },
                     onSearchText = { text ->
-                        if  (text.isNotEmpty()) {
-                            animeList = animes.filter { it.title.contains(text, ignoreCase = true) } as MutableList<Anime>
+                        animeList = if (text.trimIndent().isNotEmpty()) {
+                            animes.filter { it.title.contains(text, ignoreCase = true) } as MutableList<Anime>
                         } else {
-                            animeList = animes
+                            animes
                         }
                     }
                 )
@@ -147,7 +131,6 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
             }
         },
     ) { innerPadding ->
-
         // NavHost
         NavHost(
             navController = navController,
@@ -205,7 +188,11 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                 // Por si no encuentra el heroe se pone ?: ""
                 val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
                 // Detalles Anime
-                DetailScreen(itemId.toString(), modifier = Modifier.padding(innerPadding), navController = navController)
+                DetailScreen(
+                    itemId,
+                    modifier = Modifier.padding(innerPadding),
+                    navController = navController
+                )
             }
             composable("profile") {
                 // Información del usuario

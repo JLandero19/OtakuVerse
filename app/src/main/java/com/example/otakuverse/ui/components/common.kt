@@ -123,18 +123,21 @@ fun CenterAlignedTopAppBar(
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver a la pantalla anterior",
+                        contentDescription = stringResource(R.string.back_page),
                     )
                 }
             }
         },
         // Icono de acción
         actions = {
-            IconButton(
-                onClick = onClickSearch
-            ) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.search))
+            if (currentRouteInfo?.contains("anime_list") == true) {
+                IconButton(
+                    onClick = onClickSearch
+                ) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.search))
+                }
             }
+
             IconButton(onClick = {
                 if (sesion) {
                     navController.navigate("profile")
