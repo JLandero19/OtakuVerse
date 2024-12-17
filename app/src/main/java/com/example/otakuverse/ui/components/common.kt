@@ -90,7 +90,7 @@ fun TitlePageStandard(str: String, modifier: Modifier = Modifier) {
 // Esta función me crea un TopBar básico
 @Composable
 fun CenterAlignedTopAppBar(
-    text: String = stringResource(R.string.title),
+    text: String = stringResource(R.string.app_name),
     navController: NavHostController,
     sesion: Boolean,
     currentRouteInfo: String? = "",
@@ -174,9 +174,9 @@ fun CenterAlignedTopAppBar(
 @Composable
 fun CommentStandard(
     modifier: Modifier = Modifier,
-    userName: String = "Usuario anonimo",
+    userName: String = stringResource(R.string.anonymous_user),
     date: String = "05-12-2024",
-    comment: String = "No hay comentario"
+    comment: String = stringResource(R.string.no_comment)
 ) {
     Row (modifier = modifier.padding(8.dp).fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -256,12 +256,6 @@ fun ImageAnime(
                     tint = MaterialTheme.colorScheme.error,
                 )
             }
-//            TitleCardStandard(
-//                text = title,
-//                modifier = Modifier
-//                    .align(Alignment.Center)
-//                    .padding(16.dp)
-//            )
         }
     } else {
         Box {

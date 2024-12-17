@@ -50,7 +50,7 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
         AnimeCard(anime, modifier = Modifier.width(200.dp).height(300.dp))
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Título Anime",
+                text = stringResource(R.string.anime_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 1.dp)
@@ -61,7 +61,7 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Clasificación",
+                text = stringResource(R.string.ranking),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 1.dp)
@@ -82,7 +82,7 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Número de episodios",
+                text = stringResource(R.string.num_episodes),
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
             )
             Text(
@@ -94,7 +94,7 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
     Row (modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Descripción",
+                text = stringResource(R.string.description),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -109,7 +109,7 @@ fun CompactDetailScreen(anime: Anime, navController: NavHostController) {
     Row (modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Comentarios",
+                text = stringResource(R.string.comment_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -130,7 +130,7 @@ fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
                 AnimeCard(anime, modifier = Modifier.width(200.dp).height(300.dp))
                 Column (modifier = Modifier.padding(8.dp)) {
                     Text(
-                        text = stringResource(R.string.titleAnime),
+                        text = stringResource(R.string.anime_title),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 1.dp)
@@ -141,7 +141,7 @@ fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = stringResource(R.string.ranked),
+                        text = stringResource(R.string.ranking),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 1.dp)
@@ -162,7 +162,7 @@ fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
-                        text = stringResource(R.string.numEpisodes),
+                        text = stringResource(R.string.num_episodes),
                         style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     )
                     Text(
@@ -189,7 +189,7 @@ fun MedExpDetailScreen(anime: Anime, navController: NavHostController) {
         Spacer(modifier = Modifier.width(10.dp))
         Column (modifier = Modifier.weight(1f)) {
             Text(
-                text = "Comentarios",
+                text = stringResource(R.string.comment_title),
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )

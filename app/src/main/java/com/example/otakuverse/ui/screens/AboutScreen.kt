@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.otakuverse.R
-import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.components.TitlePageStandard
 
 @Composable
@@ -38,7 +36,7 @@ fun AboutScreen(
     ) {
         item {
             TitlePageStandard(
-                str = "Sobre la aplicación",
+                str = stringResource(R.string.about),
             )
             Text(
                 text = """
@@ -64,7 +62,7 @@ fun AboutScreen(
             ) {
                 Icon(
                     imageVector = Icons.Filled.Email,
-                    contentDescription = "Compartir",
+                    contentDescription = stringResource(R.string.share),
                     modifier = Modifier.size(56.dp)
                 )
             }

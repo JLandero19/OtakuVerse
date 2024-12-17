@@ -30,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -84,7 +83,7 @@ fun InformationUser(
             Spacer(modifier = Modifier.height(20.dp))
             Column {
                 Row {
-                    Icon(Icons.TwoTone.Phone, contentDescription = "Icon Phone")
+                    Icon(Icons.TwoTone.Phone, contentDescription = stringResource(R.string.icon_phone))
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "+34 123456789",
@@ -93,7 +92,7 @@ fun InformationUser(
                 }
                 Spacer(modifier = Modifier.height(20.dp))
                 Row {
-                    Icon(Icons.TwoTone.MailOutline, contentDescription = "Icon Mail")
+                    Icon(Icons.TwoTone.MailOutline, contentDescription = stringResource(R.string.icon_mail))
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "jlanrod2009@g.educaand.es",
@@ -130,7 +129,7 @@ fun InformationUser(
                     Spacer(modifier = Modifier.height(20.dp))
                     Column {
                         Row {
-                            Icon(Icons.TwoTone.Phone, contentDescription = "Icon Phone")
+                            Icon(Icons.TwoTone.Phone, contentDescription = stringResource(R.string.icon_phone))
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = "+34 123456789",
@@ -139,7 +138,7 @@ fun InformationUser(
                         }
                         Spacer(modifier = Modifier.height(20.dp))
                         Row {
-                            Icon(Icons.TwoTone.MailOutline, contentDescription = "Icon Mail")
+                            Icon(Icons.TwoTone.MailOutline, contentDescription = stringResource(R.string.icon_mail))
                             Spacer(modifier = Modifier.width(10.dp))
                             Text(
                                 text = "jlanrod2009@g.educaand.es",

@@ -32,14 +32,14 @@ fun LoginScreen(
 ) {
     LazyColumn (modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         item {
-            StandardText(str = stringResource(R.string.titleLogin), style = MaterialTheme.typography.titleLarge, fontSize = 40.sp)
+            StandardText(str = stringResource(R.string.title_login), style = MaterialTheme.typography.titleLarge, fontSize = 40.sp)
             Spacer(modifier = Modifier.height(10.dp))
             StandardTextField(stringResource(R.string.username), { Icon(imageVector = Icons.TwoTone.AccountCircle, tint = MaterialTheme.colorScheme.primary, contentDescription = stringResource(R.string.username)) })
             Spacer(modifier = Modifier.height(10.dp))
-            PasswordTextField(stringResource(R.string.password), { Icon(imageVector = Icons.TwoTone.Lock, tint = MaterialTheme.colorScheme.primary, contentDescription = stringResource(R.string.username)) })
+            PasswordTextField(stringResource(R.string.password), { Icon(imageVector = Icons.TwoTone.Lock, tint = MaterialTheme.colorScheme.primary, contentDescription = stringResource(R.string.password)) })
             Spacer(modifier = Modifier.height(10.dp))
             Button(onClick = onClickSesion) {
-                Text(stringResource(R.string.titleLogin), style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.title_login), style = MaterialTheme.typography.bodyMedium)
             }
         }
     }

@@ -13,13 +13,12 @@
     <string name="detail_anime">Detalle Anime</string>
     <string name="image_user">Imagen de perfil</string>
     <string name="profile_information">Perfil de Usuario</string>
-    <string name="titleLogin">Iniciar Sesión</string>
+    <string name="title_login">Iniciar Sesión</string>
     <string name="username">Nombre de usuario</string>
     <string name="password">Contraseña</string>
-    <string name="titleAnime">Título Anime</string>
-    <string name="ranked">Clasificación</string>
+    <string name="anime_title">Título Anime</string>
     <string name="score">Puntuación</string>
-    <string name="numEpisodes">Número de Episodios</string>
+    <string name="num_episodes">Número de Episodios</string>
     <string name="description">Descripción</string>
     <string name="delete_fav_anime_title">Eliminar de favoritos</string>
     <string name="delete_fav_anime_text">¿Estás seguro de eliminar %s?</string>
@@ -30,6 +29,14 @@
     <string name="bottom_bar_favorite">Favoritos</string>
     <string name="bottom_bar_profile">Perfil</string>
     <string name="bottom_bar_login">Login</string>
-    <string name="search">Search</string>
-    <string name="close_icon">Close Icon</string>
+    <string name="search">Buscar</string>
+    <string name="close_icon">Icono Cerrar</string>
+    <string name="back_page">Volver</string>
+    <string name="anonymous_user">Usuario Anónimo</string>
+    <string name="no_comment">No hay comentario</string>
+    <string name="share">Compartir</string>
+    <string name="ranking">Clasificación</string>
+    <string name="comment_title">Comentarios</string>
+    <string name="icon_phone">Icono Teléfono</string>
+    <string name="icon_mail">Icono Email</string>
 </resources>
