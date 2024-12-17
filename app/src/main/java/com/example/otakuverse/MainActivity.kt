@@ -161,7 +161,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                     listAnime = animeList,
                     onFavClicked = { anime ->
                         // Actualiza el estado de favorito del anime que recibe por parametro
-                        val updatedAnimes = animes.map {
+                        val updatedAnimes = animeList.map {
                             // Busca el anime por el titulo, pero funcionaría igual buscando por ID
                             if (it.title == anime.title) {
                                 // Cambia el atributo de favorito
@@ -173,6 +173,7 @@ fun OtakuverseApp(onShare: () -> Unit = {}) {
                         }
                         // Actualiza la lista de Animes
                         animes = updatedAnimes.toMutableList() // Actualiza la lista
+                        animeList = animes
                     }
                 )
             }
