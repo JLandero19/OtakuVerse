@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -18,6 +20,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // Definir la URL base
+        buildConfigField("String", "BASE_URL", "\"https://myanimelist.p.rapidapi.com\"")
+        // Definir el access token: mi access token: c0af927920c2c3b0eac8ea5caea8906a
+        buildConfigField("String", "ACCESS_TOKEN", "\"27e07c91dbmshe3dd03433cf4e59p14d0a1jsn3848365a7a20\"")
     }
 
     buildTypes {
@@ -37,6 +44,7 @@ android {
         jvmTarget = "11"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -50,7 +58,20 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp)
+    implementation(libs.jakewharton.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    //Coil
+    implementation(libs.coil.compose)
+
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.material3.window.size)
 
     implementation(libs.androidx.core.ktx)
