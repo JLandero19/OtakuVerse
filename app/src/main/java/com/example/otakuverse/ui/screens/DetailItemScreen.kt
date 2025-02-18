@@ -1,5 +1,6 @@
 package com.example.otakuverse.ui.screens
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,15 +25,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.otakuverse.R
-import com.example.otakuverse.model.Anime
-import com.example.otakuverse.ui.components.AnimeCard
+import com.example.otakuverse.datamodel.Anime
+import com.example.otakuverse.datamodel.AnimeDetail
+import com.example.otakuverse.ui.components.AnimeDetailCard
 import com.example.otakuverse.ui.components.CommentStandard
 import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.utils.getWindowSizeClass
 
+@SuppressLint("ContextCastToActivity")
 @Composable
 fun DetailScreen(
-    anime: Anime,
+    anime: AnimeDetail,
     modifier: Modifier,
 //    navController: NavHostController,
     onFavClicked: (Anime) -> Unit = {}
@@ -62,7 +65,7 @@ fun DetailScreen(
 
 @Composable
 fun CompactDetailScreen(
-    anime: Anime,
+    anime: AnimeDetail,
 //    navController: NavHostController,
     onFavClick: (Anime) -> Unit = {}
 ) {
@@ -72,10 +75,10 @@ fun CompactDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
             onConfirmation = {
                 openAlertDialog = false
-                anime.favorite = !anime.favorite
+                //anime.favorite = !anime.favorite
             },
             onDismissRequest = { openAlertDialog = false }
         )
@@ -83,16 +86,16 @@ fun CompactDetailScreen(
 
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
         // Queda programar el onClicCard
-        AnimeCard(
+        AnimeDetailCard(
             anime,
             modifier = Modifier.width(200.dp).height(300.dp),
             onClickFav = {
-                if (!anime.favorite) {
-                    onFavClick(anime)
-                } else {
-                    // Solo lo quiero utilizar para eliminar
-                    openAlertDialog = true
-                }
+//                if (!anime.favorite) {
+//                    onFavClick(anime)
+//                } else {
+//                    // Solo lo quiero utilizar para eliminar
+//                    openAlertDialog = true
+//                }
             }
         )
         Column (modifier = Modifier.padding(8.dp)) {
@@ -103,7 +106,7 @@ fun CompactDetailScreen(
                 modifier = Modifier.padding(top = 1.dp)
             )
             Text(
-                text = anime.title,
+                text = anime.titleEn,
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -114,7 +117,7 @@ fun CompactDetailScreen(
                 modifier = Modifier.padding(top = 1.dp)
             )
             Text(
-                text = anime.ranked.toString(),
+                text = anime.statistics.ranked.toString(),
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -124,7 +127,7 @@ fun CompactDetailScreen(
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = anime.score.toString(),
+                text = anime.statistics.score.toString(),
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -133,7 +136,7 @@ fun CompactDetailScreen(
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
             )
             Text(
-                text = if (anime.number_episodes.toString() == "null") "..." else anime.number_episodes.toString(),
+                text = if (anime.information.episodes.toString() == "null") "..." else anime.information.episodes.toString(),
                 fontSize = 18.sp
             )
         }
@@ -147,7 +150,7 @@ fun CompactDetailScreen(
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = anime.description,
+                text = anime.sinopsis,
                 fontSize = 18.sp
             )
         }
@@ -171,7 +174,7 @@ fun CompactDetailScreen(
 
 @Composable
 fun MedExpDetailScreen(
-    anime: Anime,
+    anime: AnimeDetail,
 //    navController: NavHostController,
     onFavClick: (Anime) -> Unit = {}
 ) {
@@ -181,10 +184,10 @@ fun MedExpDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
             onConfirmation = {
                 openAlertDialog = false
-                anime.favorite = !anime.favorite
+                // anime.favorite = !anime.favorite
             },
             onDismissRequest = { openAlertDialog = false }
         )
@@ -192,16 +195,16 @@ fun MedExpDetailScreen(
     Row (modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp)) {
         Column (modifier = Modifier.weight(1f)) {
             Row {
-                AnimeCard(
+                AnimeDetailCard(
                     anime,
                     modifier = Modifier.width(200.dp).height(300.dp),
                     onClickFav = {
-                        if (!anime.favorite) {
-                            onFavClick(anime)
-                        } else {
-                            // Solo lo quiero utilizar para eliminar
-                            openAlertDialog = true
-                        }
+//                        if (!anime.favorite) {
+//                            onFavClick(anime)
+//                        } else {
+//                            // Solo lo quiero utilizar para eliminar
+//                            openAlertDialog = true
+//                        }
                     }
                 )
                 Column (modifier = Modifier.padding(8.dp)) {
@@ -212,7 +215,7 @@ fun MedExpDetailScreen(
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
-                        text = anime.title,
+                        text = anime.titleEn,
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -223,7 +226,7 @@ fun MedExpDetailScreen(
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
-                        text = anime.ranked.toString(),
+                        text = anime.statistics.ranked.toString(),
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -233,7 +236,7 @@ fun MedExpDetailScreen(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = anime.score.toString(),
+                        text = anime.statistics.score.toString(),
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -242,7 +245,7 @@ fun MedExpDetailScreen(
                         style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     )
                     Text(
-                        text = if (anime.number_episodes.toString() == "null") "..." else anime.number_episodes.toString(),
+                        text = if (anime.information.episodes.toString() == "null") "..." else anime.information.episodes.toString(),
                         fontSize = 18.sp
                     )
                 }
@@ -256,7 +259,7 @@ fun MedExpDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
-                        text = anime.description,
+                        text = anime.sinopsis,
                         fontSize = 18.sp
                     )
                 }

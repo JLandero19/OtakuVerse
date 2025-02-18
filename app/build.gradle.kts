@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.otakuverse"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.otakuverse"
@@ -55,6 +55,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
@@ -70,6 +71,9 @@ dependencies {
 
     //Coil
     implementation(libs.coil.compose)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.material3.window.size)

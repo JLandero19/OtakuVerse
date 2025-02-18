@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.1"
 coreSplashscreen = "1.0.1"
+datastorePreferences = "1.1.2"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
@@ -18,12 +19,13 @@ okhttp = "4.12.0"
 kotlinxJson = "1.8.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 retrofit2KotlinxSerialization = "2.1.10"
-kotlinCoroutines = "1.9.0"
-coilCompose = "2.4.0"
+kotlinCoroutines = "1.10.1"
+coilCompose = "2.7.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

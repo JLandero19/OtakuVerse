@@ -4,6 +4,7 @@ package com.example.otakuverse.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
@@ -44,8 +48,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -55,9 +61,13 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
+import com.example.otakuverse.datamodel.AnimeDetail
 import com.example.otakuverse.model.Datasource
+import com.example.otakuverse.ui.screens.profile.ProfileViewModel
 
 @Composable
 fun StandardText(
@@ -178,13 +188,17 @@ fun CommentStandard(
     date: String = "05-12-2024",
     comment: String = stringResource(R.string.no_comment)
 ) {
-    Row (modifier = modifier.padding(8.dp).fillMaxWidth(),
+    Row (modifier = modifier
+        .padding(8.dp)
+        .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = painterResource(R.drawable.user_default),
             contentDescription = stringResource(R.string.image_user),
-            modifier = Modifier.clip(shape = CircleShape).size(60.dp),
+            modifier = Modifier
+                .clip(shape = CircleShape)
+                .size(60.dp),
             contentScale = ContentScale.Crop,
         )
         Spacer(modifier = Modifier.width(10.dp))
@@ -289,6 +303,89 @@ fun ImageAnime(
 }
 
 @Composable
+fun AsyncImageAnime(
+    modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Crop,
+    image: String,
+    contentDesc: String = "",
+    favorite: Boolean = false,
+    height: Int = 0,
+    width: Int = 0,
+    onClickFav: () -> Unit = {}
+) {
+    val contentDescription =
+        if (contentDesc == "")
+            stringResource(id = R.string.default_content_description)
+        else
+            contentDesc
+    if(height != 0 && width != 0) {
+        Box {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(image)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(R.drawable.mh_icono),
+                contentDescription = contentDescription,
+                contentScale = contentScale,
+                modifier = modifier
+                    .height(height.dp)
+                    .width(width.dp),
+            )
+            // Botón de acción con ícono
+            IconButton(
+                onClick = onClickFav,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(6.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+            ) {
+                Icon(
+                    imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = stringResource(R.string.favorite),
+                    tint = MaterialTheme.colorScheme.error,
+                )
+            }
+        }
+    } else {
+        Box {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(image)
+                    .crossfade(true)
+                    .build(),
+                placeholder = painterResource(R.drawable.mh_icono),
+                contentDescription = contentDescription,
+                contentScale = contentScale,
+            )
+
+            // Botón de acción con ícono
+            IconButton(
+                onClick = onClickFav,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(6.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+            ) {
+                Icon(
+                    imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = stringResource(R.string.favorite),
+                    tint = MaterialTheme.colorScheme.error,
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun AnimeCard(
     anime: Anime,
     modifier: Modifier = Modifier,
@@ -303,10 +400,52 @@ fun AnimeCard(
     ) {
         // Imagen del anime
         ImageAnime(
-            modifier = Modifier.fillMaxSize().height(250.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(250.dp),
             drawable = Datasource.getDrawableIdByName(anime.image_url),
-//            title = anime.title,
-            favorite = anime.favorite,
+            favorite = false,
+            onClickFav = onClickFav
+        )
+        // Imagen del anime
+//        AsyncImageAnime(
+//            modifier = Modifier.fillMaxSize().height(250.dp),
+//            image = anime.image_url,
+//            favorite = false,
+//            onClickFav = onClickFav
+//        )
+    }
+}
+
+@Composable
+fun AnimeDetailCard(
+    anime: AnimeDetail,
+    modifier: Modifier = Modifier,
+    onClickCard: () -> Unit = {},
+    onClickFav: () -> Unit = {}
+) {
+    Card(
+        modifier = modifier
+            .padding(8.dp),
+        shape = MaterialTheme.shapes.large,
+        onClick = onClickCard
+    ) {
+        // Imagen del anime
+        ImageAnime(
+            modifier = Modifier
+                .fillMaxSize()
+                .height(250.dp),
+            drawable = Datasource.getDrawableIdByName(anime.information.pictureUrl),
+            favorite = false,
+            onClickFav = onClickFav
+        )
+        // Imagen del anime
+        AsyncImageAnime(
+            modifier = Modifier
+                .fillMaxSize()
+                .height(250.dp),
+            image = anime.information.pictureUrl,
+            favorite = false,
             onClickFav = onClickFav
         )
     }

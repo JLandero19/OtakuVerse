@@ -1,15 +1,17 @@
-package com.example.otakuverse.ui.screens
+package com.example.otakuverse.ui.screens.elementList
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.SearchBar
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -18,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.model.Anime
@@ -25,15 +28,19 @@ import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.utils.getWindowSizeClass
 
+@SuppressLint("ContextCastToActivity")
 @Composable
 fun ElementListScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     listAnime: MutableList<Anime>,
+    listAnimeVM: ElementListViewModel = viewModel(factory = ElementListViewModel.Factory),
     onFavClicked: (Anime) -> Unit
 ) {
-    var myAnime by remember { mutableStateOf("") }
+    val myAnime by remember { mutableStateOf("") }
     var openAlertDialog by remember { mutableStateOf(false) }
+//    val uiState = listAnimeVM.uiState.collectAsState()
+
 
 
     // Dialog borrado de lista de favoritos.
@@ -69,15 +76,15 @@ fun ElementListScreen(
             items(listAnime) { anime ->
                 AnimeCard(
                     anime,
-                    onClickCard = { navController.navigate("details/${anime.title}") },
+                    //onClickCard = { navController.navigate("details/${anime.title}") },
                     onClickFav = {
-                        if (!anime.favorite) {
-                            onFavClicked(anime)
-                        } else {
-                            // Solo lo quiero utilizar para eliminar
-                            openAlertDialog = true
-                            myAnime = anime.title
-                        }
+//                        if (!anime.favorite) {
+//                            onFavClicked(anime)
+//                        } else {
+//                            // Solo lo quiero utilizar para eliminar
+//                            openAlertDialog = true
+//                            myAnime = anime.title
+//                        }
                     }
                 )
             }
