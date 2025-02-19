@@ -7,7 +7,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,7 +16,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -38,9 +36,7 @@ import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.elementList.ElementListScreen
 import com.example.otakuverse.ui.screens.LoginScreen
 import com.example.otakuverse.ui.screens.profile.ProfileScreen
-import com.example.otakuverse.ui.screens.profile.ProfileViewModel
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
@@ -62,9 +58,6 @@ class MainActivity : ComponentActivity() {
         startActivity(intent)
     }
 
-    // Usar `viewModels` para obtener el `ProfileViewModel`
-    private val profileViewModel: ProfileViewModel by viewModels()
-
     private lateinit var userPreferencesRepository: UserPreferencesRepository
 
     @SuppressLint("CoroutineCreationDuringComposition")
@@ -79,11 +72,13 @@ class MainActivity : ComponentActivity() {
 
             // Verificar el tema (dark o light) según el estado del ViewModel
             var isDarkTheme by remember { mutableStateOf(false) }
+            var profile by remember { mutableStateOf("") }
 
             LaunchedEffect(Unit) {
                 // Obtenemos el valor del tema desde el repositorio
                 userPreferencesRepository.userPrefs.collect { userPrefs ->
                     isDarkTheme = userPrefs.themeMode // Establecer el tema al valor almacenado
+                    profile = userPrefs.username
                 }
             }
 
@@ -92,7 +87,11 @@ class MainActivity : ComponentActivity() {
                 darkTheme = isDarkTheme
             ) {
                 OtakuverseApp(
+                    sesion = profile,
                     onShare = { shareApp() },
+                    onChangeSesion = { username ->
+                        profile = username
+                    },
                     onThemeMode = { theme ->
                         isDarkTheme = theme
                     }
@@ -109,12 +108,15 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("MutableCollectionMutableState")
 @Composable
 fun OtakuverseApp(
+    sesion: String,
     onShare: () -> Unit = {},
+    onChangeSesion: (String) -> Unit = {},
     onThemeMode: (Boolean) -> Unit = {}
 ) {
     // Solo tenemos una lista
     var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
-    var profile by remember { mutableStateOf(false) }
+    var userProfile by remember { mutableStateOf("") }
+    userProfile = sesion
     var animeList by remember { mutableStateOf(animes) }
     var showSearchBar by remember { mutableStateOf(false) }
     var textValue = ""
@@ -151,7 +153,7 @@ fun OtakuverseApp(
                     text = stringResource(R.string.app_name),
                     navController = navController,
                     currentRouteInfo = currentRoute,
-                    sesion = profile,
+                    sesion = (userProfile != ""),
                     onClickSearch = {
                         showSearchBar = !showSearchBar
                     }
@@ -165,7 +167,7 @@ fun OtakuverseApp(
                 BottomNavigationBar(
                     navController = navController,
                     currentRoute = currentRoute,
-                    sesion = profile
+                    sesion = (userProfile != "")
                 )
             }
         },
@@ -262,9 +264,9 @@ fun OtakuverseApp(
                 ProfileScreen(
                     modifier = Modifier.padding(innerPadding),
                     navController = navController,
-                    sesion = profile,
                     onClickSesion = {
-                        profile = !profile
+                        userProfile = ""
+                        onChangeSesion(userProfile)
                         navController.navigate("login")
                     },
                     onTheme = { darkTheme ->
@@ -277,8 +279,9 @@ fun OtakuverseApp(
                 LoginScreen(
                     modifier = Modifier.padding(innerPadding),
                     navController = navController,
-                    onClickSesion = {
-                        profile = !profile
+                    onClickSesion = { username ->
+                        userProfile = username
+                        onChangeSesion(userProfile)
                         navController.navigate("profile")
                     }
                 )
@@ -300,6 +303,6 @@ fun OtakuverseApp(
 @Composable
 fun ScreenPreview() {
     OtakuverseTheme {
-        OtakuverseApp()
+        OtakuverseApp("Javier Landero")
     }
 }

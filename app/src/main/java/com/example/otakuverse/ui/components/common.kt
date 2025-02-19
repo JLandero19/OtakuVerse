@@ -465,6 +465,26 @@ fun StandardTextField(label: String, leadingIcon: @Composable () -> Unit = {}) {
 }
 
 @Composable
+fun StandardTextField2(
+    label: String,
+    leadingIcon: @Composable () -> Unit = {},
+    onChange: (String) -> Unit
+) {
+    var text by remember { mutableStateOf("") }
+
+    OutlinedTextField(
+        value = text,
+        onValueChange = {
+            text = it
+            onChange(text)
+        },
+        label = { Text(label) },
+        placeholder =  { Text(label) },
+        leadingIcon = leadingIcon
+    )
+}
+
+@Composable
 fun PasswordTextField(label: String, leadingIcon: @Composable () -> Unit = {}) {
     var text by remember { mutableStateOf("") }
 

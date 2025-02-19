@@ -45,13 +45,13 @@ import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.data.ThemeMode
 import com.example.otakuverse.utils.getWindowSizeClass
+import kotlinx.coroutines.Delay
 
 @SuppressLint("ContextCastToActivity", "StateFlowValueCalledInComposition")
 @Composable
 fun ProfileScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    sesion: Boolean,
     profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModel.Factory),
     onClickSesion: () -> Unit,
     onTheme: (Boolean) -> Unit
@@ -59,14 +59,22 @@ fun ProfileScreen(
     val uiState by profileViewModel.uiState.collectAsState()
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     LazyColumn (
-        modifier = modifier.fillMaxSize().padding(25.dp),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(25.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
             InformationUser(
                 windowSize,
-                onClickSesion = onClickSesion,
-                sesion = sesion
+                onClickSesion = {
+                    profileViewModel.setSettings(
+                        username = "",
+                        uiState.themeMode
+                    )
+                    onClickSesion()
+                },
+                sesion = uiState.username
             )
             Spacer(modifier = Modifier.height(25.dp))
             Row (
@@ -84,11 +92,11 @@ fun ProfileScreen(
                                     username = uiState.username,
                                     themeMode = theme.mode
                                 )
-                                onTheme(theme.mode == true)
+                                onTheme(theme.mode)
                             }
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "Tema ${if(theme.mode == true) "oscuro" else "claro"}")
+                        Text(text = "Tema ${if(theme.mode) "oscuro" else "claro"}")
                     }
                 }
             }
@@ -100,7 +108,7 @@ fun ProfileScreen(
 @Composable
 fun InformationUser(
     windowSize: WindowWidthSizeClass,
-    sesion: Boolean,
+    sesion: String,
     onClickSesion: () -> Unit
 ) {
     when (windowSize) {
@@ -108,12 +116,14 @@ fun InformationUser(
             Image(
                 painter = painterResource(R.drawable.ace_perfil),
                 contentDescription = stringResource(R.string.image_user),
-                modifier = Modifier.size(200.dp).clip(shape = CircleShape),
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(shape = CircleShape),
                 contentScale = ContentScale.Crop
             )
             Spacer(modifier = Modifier.height(25.dp))
             Text(
-                text = "Javier Landero",
+                text = sesion,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
 
@@ -144,7 +154,9 @@ fun InformationUser(
                     Text("Editar Perfil", style = MaterialTheme.typography.bodyMedium)
                 }
                 Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = onClickSesion) {
+                Button(
+                    onClick = onClickSesion
+                ) {
                     Text("Cerrar sesión", style = MaterialTheme.typography.bodyMedium)
                 }
             }
@@ -154,12 +166,14 @@ fun InformationUser(
                 Image(
                     painter = painterResource(R.drawable.ace_perfil),
                     contentDescription = stringResource(R.string.image_user),
-                    modifier = Modifier.size(200.dp).clip(shape = CircleShape),
+                    modifier = Modifier
+                        .size(200.dp)
+                        .clip(shape = CircleShape),
                     contentScale = ContentScale.Crop
                 )
                 Column {
                     Text(
-                        text = "Javier Landero",
+                        text = sesion,
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold
 
@@ -190,7 +204,7 @@ fun InformationUser(
                             Text(stringResource(R.string.text_button_edit_profile), style = MaterialTheme.typography.bodyMedium)
                         }
                         Spacer(modifier = Modifier.width(10.dp))
-                        if (sesion) {
+                        if (sesion != "") {
                             Button(onClick = onClickSesion) {
                                 Text(stringResource(R.string.logout_button), style = MaterialTheme.typography.bodyMedium)
                             }
