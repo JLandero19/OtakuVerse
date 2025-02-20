@@ -27,9 +27,6 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,7 +42,6 @@ import androidx.navigation.NavHostController
 import com.example.otakuverse.R
 import com.example.otakuverse.data.ThemeMode
 import com.example.otakuverse.utils.getWindowSizeClass
-import kotlinx.coroutines.Delay
 
 @SuppressLint("ContextCastToActivity", "StateFlowValueCalledInComposition")
 @Composable

@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
 import com.example.otakuverse.repository.AnimeRepository
+import com.example.otakuverse.repository.AnimeRepositoryDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class ElementListViewModel (
-    private val animeRepository: AnimeRepository
+    private val animeRepository: AnimeRepository,
+    private val animeRepositoryDatabase: AnimeRepositoryDatabase
 ) : ViewModel() {
 
     companion object {
@@ -21,7 +24,8 @@ class ElementListViewModel (
             initializer {
                 val application = (this[APPLICATION_KEY] as OtakuverseReleaseApplication)
                 ElementListViewModel(
-                    application.animeRepository
+                    application.animeRepository,
+                    application.animeRepositoryDatabase
                 )
             }
         }
@@ -34,10 +38,25 @@ class ElementListViewModel (
     val uiState: StateFlow<ElementListUiState> = _uiState
 
     init {
+        topAnime()
+    }
+
+    private fun topAnime() {
         viewModelScope.launch {
-            animeRepository.getTopAnime().map { result ->
-                _uiState.value = ElementListUiState( topAnime =  result.toMutableList() )
+            _uiState.value = _uiState.value.copy(isLoading = true) // Mostrar estado de carga
+            try {
+                animeRepository.getTopAnime().map { result ->
+                    _uiState.value = ElementListUiState( topAnime =  result.toMutableList(), isLoading = false )
+                }
+            } catch (e: Exception) {
+                _uiState.value = ElementListUiState(isLoading = false, userMessage = e.message)
             }
+        }
+    }
+
+    fun saveAnime(anime: Anime) {
+        viewModelScope.launch {
+            animeRepositoryDatabase.insertAnime(anime)
         }
     }
 }

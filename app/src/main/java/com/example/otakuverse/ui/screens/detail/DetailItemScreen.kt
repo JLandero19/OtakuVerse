@@ -2,23 +2,30 @@ package com.example.otakuverse.ui.screens.detail
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -43,25 +50,41 @@ fun DetailScreen(
     onFavClicked: (Anime) -> Unit = {},
     animeVM: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
 ) {
-    var uiState: State<DetailUiState> = animeVM.uiState.collectAsState()
-    val windowSize = getWindowSizeClass(LocalContext.current as Activity)
-    LazyColumn(modifier = modifier) {
-        item {
-            when (windowSize) {
-                WindowWidthSizeClass.Compact -> {
-                    CompactDetailScreen(
-                        anime,
-//                        navController,
-                        onFavClick = onFavClicked)
-                }
-                else -> {
-                    MedExpDetailScreen(
-                        anime,
-//                        navController,
-                        onFavClick = onFavClicked
-                    )
-                }
+    val uiState = animeVM.uiState.collectAsState()
+    LaunchedEffect(id) {
+        animeVM.animeDetail(id)
+    }
 
+    // Verifica en los logs si el estado cambia
+    Log.d("DetailScreen", "UI State: ${uiState.value}")
+    Log.d("DetailScreen", "id: $id")
+
+    val windowSize = getWindowSizeClass(LocalContext.current as Activity)
+    when {
+        uiState.value.isLoading -> {
+            // Mostrar un indicador de progreso mientras se carga
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        }
+        uiState.value.errorMessage != null -> {
+            // Mostrar mensaje de error
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = "Error: ${uiState.value.errorMessage}", color = Color.Red)
+            }
+        }
+        else -> {
+            // Mostrar los detalles del anime
+            val anime = uiState.value.anime
+            if (anime != null) {
+                LazyColumn(modifier = modifier) {
+                    item {
+                        when (windowSize) {
+                            WindowWidthSizeClass.Compact -> CompactDetailScreen(anime, onFavClick = onFavClicked)
+                            else -> MedExpDetailScreen(anime, onFavClick = onFavClicked)
+                        }
+                    }
+                }
             }
         }
     }
@@ -79,7 +102,7 @@ fun CompactDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title_en),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
             onConfirmation = {
                 openAlertDialog = false
                 //anime.favorite = !anime.favorite
@@ -110,7 +133,7 @@ fun CompactDetailScreen(
                 modifier = Modifier.padding(top = 1.dp)
             )
             Text(
-                text = anime.title_en,
+                text = anime.titleEn,
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -188,7 +211,7 @@ fun MedExpDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title_en),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
             onConfirmation = {
                 openAlertDialog = false
                 // anime.favorite = !anime.favorite
@@ -219,7 +242,7 @@ fun MedExpDetailScreen(
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
-                        text = anime.title_en,
+                        text = anime.titleEn,
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -249,7 +272,7 @@ fun MedExpDetailScreen(
                         style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
                     )
                     Text(
-                        text = if (anime.information.episodes.toString() == "null") "..." else anime.information.episodes.toString(),
+                        text = if (anime.information.episodes == "null") "..." else anime.information.episodes,
                         fontSize = 18.sp
                     )
                 }

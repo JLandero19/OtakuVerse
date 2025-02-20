@@ -10,7 +10,6 @@ import com.example.otakuverse.data.ThemeMode
 import com.example.otakuverse.data.UserPreferences
 import com.example.otakuverse.data.UserPreferencesRepository
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

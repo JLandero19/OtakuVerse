@@ -19,9 +19,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.FavoriteBorder
+import androidx.compose.material.icons.twotone.Star
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -63,6 +67,7 @@ import com.example.otakuverse.R
 import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeDetail
+import com.example.otakuverse.ui.theme.ExtendedColorScheme
 
 
 @Composable
@@ -337,10 +342,28 @@ fun AsyncImageAnime(
                     ),
             ) {
                 Icon(
-                    imageVector = if (!favorite) Icons.TwoTone.FavoriteBorder else Icons.TwoTone.Favorite,
+                    imageVector = if (!favorite) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
                     modifier = Modifier.size(24.dp),
                     contentDescription = stringResource(R.string.favorite),
                     tint = MaterialTheme.colorScheme.error,
+                )
+            }
+
+            IconButton(
+                onClick = {},
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(6.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        shape = RoundedCornerShape(50.dp)
+                    ),
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = stringResource(R.string.save),
+                    tint = MaterialTheme.colorScheme.tertiary,
                 )
             }
         }
@@ -352,7 +375,8 @@ fun AnimeCard(
     anime: Anime,
     modifier: Modifier = Modifier,
     onClickCard: () -> Unit = {},
-    onClickFav: () -> Unit = {}
+    onClickFav: () -> Unit = {},
+    onClickSave: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -381,7 +405,7 @@ fun AnimeCard(
 
 @Composable
 fun AnimeDetailCard(
-    anime: AnimeDetail,
+    anime: AnimeDetail?,
     modifier: Modifier = Modifier,
     onClickCard: () -> Unit = {},
     onClickFav: () -> Unit = {}
@@ -402,14 +426,16 @@ fun AnimeDetailCard(
 //            onClickFav = onClickFav
 //        )
         // Imagen del anime
-        AsyncImageAnime(
-            modifier = Modifier
-                .fillMaxSize()
-                .height(250.dp),
-            image = anime.picture_url,
-            favorite = false,
-            onClickFav = onClickFav
-        )
+        anime?.let {
+            AsyncImageAnime(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .height(250.dp),
+                image = it.pictureUrl,
+                favorite = false,
+                onClickFav = onClickFav
+            )
+        }
     }
 }
 

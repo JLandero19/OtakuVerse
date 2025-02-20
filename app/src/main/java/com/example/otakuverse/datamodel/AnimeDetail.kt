@@ -5,12 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AnimeDetail(
-    @SerialName("alternative_titles") val alternative_titles: AlternativeTitles,
-    @SerialName("characters") val characters: List<Character>,
-    @SerialName("information") val information: Information,
-    @SerialName("picture_url") val picture_url: String,
-    @SerialName("statistics") val statistics: Statistics,
+    @SerialName("title_ov") val titleOv: String,
+    @SerialName("title_en") val titleEn: String,
     @SerialName("synopsis") val synopsis: String,
-    @SerialName("title_en") val title_en: String,
-    @SerialName("title_ov") val title_ov: String
+//    @SerialName("alternative_titles") val alternativeTitles: AlternativeTitles,
+    @SerialName("information") val information: Information,
+    @SerialName("statistics") val statistics: Statistics,
+//    @SerialName("characters") val characters: List<Character>,
+    @SerialName("picture_url") val pictureUrl: String
 )

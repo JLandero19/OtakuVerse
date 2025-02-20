@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class DetailViewModel (
     private val animeRepository: AnimeRepository,
-    id: Int
 ) : ViewModel() {
 
     companion object {
@@ -24,23 +23,28 @@ class DetailViewModel (
                 val application = (this[APPLICATION_KEY] as OtakuverseReleaseApplication)
                 DetailViewModel(
                     application.animeRepository,
-                    id
                 )
             }
         }
     }
 
     private val _uiState = MutableStateFlow(
-        ElementListUiState()
+        DetailUiState()
     )
 
-    val uiState: StateFlow<ElementListUiState> = _uiState
+    val uiState: StateFlow<DetailUiState> = _uiState
 
-    init {
+    fun animeDetail(id: Int) {
         viewModelScope.launch {
-            animeRepository.getAnime(id).map { result ->
-                _uiState.value = DetailUiState( anime = result )
+            _uiState.value = _uiState.value.copy(isLoading = true) // Mostrar estado de carga
+            try {
+                animeRepository.getAnime(id).map { result ->
+                    _uiState.value = DetailUiState( anime = result, isLoading = false )
+                }
+            } catch (e: Exception) {
+                _uiState.value = DetailUiState(isLoading = false, errorMessage = e.message)
             }
         }
     }
+
 }

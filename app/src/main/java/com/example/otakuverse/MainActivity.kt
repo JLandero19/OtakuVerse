@@ -117,7 +117,7 @@ fun OtakuverseApp(
     var userProfile by remember { mutableStateOf(sesion) }
 //    var animeList by remember { mutableStateOf(animes) }
     var showSearchBar by remember { mutableStateOf(false) }
-    var textValue = ""
+//    var textValue = ""
 
     // NavController
     val navController = rememberNavController()
@@ -237,7 +237,7 @@ fun OtakuverseApp(
                 // Detalles Anime
                 DetailScreen(
 //                    animeList.find { it.title == itemId }!!,
-                    itemId,
+                    itemId.toInt(),
                     modifier = Modifier.padding(innerPadding),
 //                    navController = navController,
                     onFavClicked = { anime ->

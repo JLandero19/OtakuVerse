@@ -250,7 +250,7 @@ val customColor1ContainerDark = Color(0xFF6F334A)
 val onCustomColor1ContainerDark = Color(0xFFFFD9E3)
 val customColor2Dark = Color(0xFF9CD49F)
 val onCustomColor2Dark = Color(0xFF003913)
-val customColor2ContainerDark = Color(0xFF1D5128)
+val customColor2ContainerDark = Color(0xFF009B00)
 val onCustomColor2ContainerDark = Color(0xFFB7F1B9)
 
 val customColor1DarkMediumContrast = Color(0xFFFFB7CE)

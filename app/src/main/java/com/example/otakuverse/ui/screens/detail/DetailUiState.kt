@@ -5,7 +5,8 @@ import com.example.otakuverse.ui.screens.elementList.UserMessages
 
 data class DetailUiState(
     val anime: AnimeDetail? = null,
-    val userMessage: UserMessages? = null
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null
 )
 
 enum class UserMessages {

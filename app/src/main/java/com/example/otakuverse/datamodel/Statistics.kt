@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Statistics(
-    @SerialName("favorites") val favorites: Int,
-    @SerialName("members") val members: Int,
-    @SerialName("popularity") val popularity: Int,
+    @SerialName("score") val score: Double,
     @SerialName("ranked") val ranked: Int,
-    @SerialName("score") val score: Double
+//    @SerialName("popularity") val popularity: Int,
+//    @SerialName("members") val members: Int,
+//    @SerialName("favorites") val favorites: Int
 )

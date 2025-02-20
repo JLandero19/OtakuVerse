@@ -5,7 +5,7 @@ import com.example.otakuverse.datamodel.Anime
 data class ElementListUiState(
     val topAnime: MutableList<Anime> = mutableListOf(),
     val isLoading: Boolean = true,
-    val userMessage: UserMessages? = null
+    val userMessage: String? = null
 )
 
 enum class UserMessages {
