@@ -1,4 +1,4 @@
-package com.example.otakuverse.ui.screens
+package com.example.otakuverse.ui.screens.detail
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.otakuverse.R
 import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeDetail
@@ -35,11 +37,13 @@ import com.example.otakuverse.utils.getWindowSizeClass
 @SuppressLint("ContextCastToActivity")
 @Composable
 fun DetailScreen(
-    anime: AnimeDetail,
+    id: Int,
     modifier: Modifier,
 //    navController: NavHostController,
-    onFavClicked: (Anime) -> Unit = {}
+    onFavClicked: (Anime) -> Unit = {},
+    animeVM: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
 ) {
+    var uiState: State<DetailUiState> = animeVM.uiState.collectAsState()
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     LazyColumn(modifier = modifier) {
         item {
@@ -75,7 +79,7 @@ fun CompactDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title_en),
             onConfirmation = {
                 openAlertDialog = false
                 //anime.favorite = !anime.favorite
@@ -106,7 +110,7 @@ fun CompactDetailScreen(
                 modifier = Modifier.padding(top = 1.dp)
             )
             Text(
-                text = anime.titleEn,
+                text = anime.title_en,
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -150,7 +154,7 @@ fun CompactDetailScreen(
             )
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = anime.sinopsis,
+                text = anime.synopsis,
                 fontSize = 18.sp
             )
         }
@@ -184,7 +188,7 @@ fun MedExpDetailScreen(
     if (openAlertDialog) {
         StandardAlertDialog(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
-            dialogText = stringResource(R.string.delete_fav_anime_text, anime.titleEn),
+            dialogText = stringResource(R.string.delete_fav_anime_text, anime.title_en),
             onConfirmation = {
                 openAlertDialog = false
                 // anime.favorite = !anime.favorite
@@ -215,7 +219,7 @@ fun MedExpDetailScreen(
                         modifier = Modifier.padding(top = 1.dp)
                     )
                     Text(
-                        text = anime.titleEn,
+                        text = anime.title_en,
                         fontSize = 18.sp
                     )
                     Spacer(modifier = Modifier.height(10.dp))
@@ -259,7 +263,7 @@ fun MedExpDetailScreen(
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                     Text(
-                        text = anime.sinopsis,
+                        text = anime.synopsis,
                         fontSize = 18.sp
                     )
                 }

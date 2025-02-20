@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.otakuverse.R
-import com.example.otakuverse.model.Anime
+import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.ui.components.StandardAlertDialog
 import com.example.otakuverse.utils.getWindowSizeClass
@@ -33,15 +33,16 @@ import com.example.otakuverse.utils.getWindowSizeClass
 fun ElementListScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    listAnime: MutableList<Anime>,
+//    listAnime: MutableList<Anime>,
     listAnimeVM: ElementListViewModel = viewModel(factory = ElementListViewModel.Factory),
     onFavClicked: (Anime) -> Unit
 ) {
     val myAnime by remember { mutableStateOf("") }
     var openAlertDialog by remember { mutableStateOf(false) }
-//    val uiState = listAnimeVM.uiState.collectAsState()
+    val uiState = listAnimeVM.uiState.collectAsState()
 
-
+    // Log para depurar la respuesta
+    Log.d("TOPANIMES", "${uiState.value.topAnime}")
 
     // Dialog borrado de lista de favoritos.
     if (openAlertDialog) {
@@ -49,14 +50,14 @@ fun ElementListScreen(
             dialogTitle = stringResource(R.string.delete_fav_anime_title),
             dialogText = stringResource(R.string.delete_fav_anime_text, myAnime),
             onConfirmation = {
-                openAlertDialog = false
-                listAnime.map {
-                    if (it.title == myAnime) {
-                        onFavClicked(it)
-                    } else {
-                        it // Deja el objeto sin cambios
-                    }
-                }.toMutableList()
+//                openAlertDialog = false
+//                listAnime.map {
+//                    if (it.title == myAnime) {
+//                        onFavClicked(it)
+//                    } else {
+//                        it // Deja el objeto sin cambios
+//                    }
+//                }.toMutableList()
             },
             onDismissRequest = { openAlertDialog = false }
         )
@@ -73,10 +74,10 @@ fun ElementListScreen(
             columns = GridCells.Fixed(columns), // Esto asegura dos columnas
             contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
         ) {
-            items(listAnime) { anime ->
+            items(uiState.value.topAnime.shuffled()) { anime ->
                 AnimeCard(
                     anime,
-                    //onClickCard = { navController.navigate("details/${anime.title}") },
+                    onClickCard = { navController.navigate("details/${anime.myanimelist_id}") },
                     onClickFav = {
 //                        if (!anime.favorite) {
 //                            onFavClicked(anime)

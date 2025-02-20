@@ -25,14 +25,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.otakuverse.data.UserPreferencesRepository
-import com.example.otakuverse.model.Anime
-import com.example.otakuverse.model.Datasource
 import com.example.otakuverse.otakuverserelease.dataStore
 import com.example.otakuverse.ui.components.BottomNavigationBar
 import com.example.otakuverse.ui.theme.OtakuverseTheme
 import com.example.otakuverse.ui.components.CenterAlignedTopAppBar
 import com.example.otakuverse.ui.components.StandardSearchBar
 import com.example.otakuverse.ui.screens.AboutScreen
+import com.example.otakuverse.ui.screens.detail.DetailScreen
 import com.example.otakuverse.ui.screens.elementList.ElementListScreen
 import com.example.otakuverse.ui.screens.LoginScreen
 import com.example.otakuverse.ui.screens.profile.ProfileScreen
@@ -111,12 +110,12 @@ fun OtakuverseApp(
     sesion: String,
     onShare: () -> Unit = {},
     onChangeSesion: (String) -> Unit = {},
-    onThemeMode: (Boolean) -> Unit = {}
+    onThemeMode: (Boolean) -> Unit = {},
 ) {
     // Solo tenemos una lista
-    var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
+//    var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
     var userProfile by remember { mutableStateOf(sesion) }
-    var animeList by remember { mutableStateOf(animes) }
+//    var animeList by remember { mutableStateOf(animes) }
     var showSearchBar by remember { mutableStateOf(false) }
     var textValue = ""
 
@@ -136,15 +135,15 @@ fun OtakuverseApp(
                     onClickClearSearch = {
                         showSearchBar = !showSearchBar
                         // Resetea el buscador
-                        if (!showSearchBar) animeList = animes
+//                        if (!showSearchBar) animeList = animes
                     },
                     onSearchText = { text ->
-                        textValue = text
-                        animeList = if (text.trimIndent().isNotEmpty()) {
-                            animes.filter { it.title.contains(text, ignoreCase = true) } as MutableList<Anime>
-                        } else {
-                            animes
-                        }
+//                        textValue = text
+//                        animeList = if (text.trimIndent().isNotEmpty()) {
+//                            animes.filter { it.title.contains(text, ignoreCase = true) } as MutableList<Anime>
+//                        } else {
+//                            animes
+//                        }
                     }
                 )
             } else {
@@ -181,66 +180,8 @@ fun OtakuverseApp(
                 ElementListScreen(
                     modifier = Modifier.padding(innerPadding),
                     navController = navController,
-                    listAnime = animeList,
+//                    listAnime = animeList,
                     onFavClicked = { anime ->
-                        // Actualiza el estado de favorito del anime que recibe por parametro
-                        val updatedAnimes = animes.map {
-                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
-                            if (it.title == anime.title) {
-                                // Cambia el atributo de favorito
-                                it.copy(favorite = !it.favorite)
-                            } else {
-                                // En caso de no sea igual devuelve el iterador
-                                it
-                            }
-                        }
-                        // Actualiza la lista de Animes
-                        animes = updatedAnimes.toMutableList() // Actualiza la lista
-                        animeList = animes
-                    }
-                )
-            }
-            composable("fav_anime_list") {
-                // Lista de animes favoritos
-                ElementListScreen(
-                    modifier = Modifier.padding(innerPadding),
-                    navController = navController,
-                    listAnime = animeList.filter { it.favorite }.toMutableList(),
-                    onFavClicked = { anime ->
-                        // Actualiza el estado de favorito del anime que recibe por parametro
-                        val updatedAnimes = animes.map {
-                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
-                            if (it.title == anime.title) {
-                                // Cambia el atributo de favorito
-                                it.copy(favorite = !it.favorite)
-                            } else {
-                                // En caso de no sea igual devuelve el iterador
-                                it
-                            }
-                        }
-                        // Actualiza la lista de Animes
-                        animes = updatedAnimes.toMutableList() // Actualiza la lista
-                        animeList = animes
-                        // Esto se utiliza para controlar el buscador
-                        if (textValue != "") {
-                            animeList = if (textValue.trimIndent().isNotEmpty()) {
-                                animes.filter { it.title.contains(textValue, ignoreCase = true) } as MutableList<Anime>
-                            } else {
-                                animes
-                            }
-                        }
-                    }
-                )
-            }
-//            composable("details/{itemId}") { backStackEntry ->
-//                // Por si no encuentra el heroe se pone ?: ""
-//                val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
-//                // Detalles Anime
-//                DetailScreen(
-//                    animeList.find { it.title == itemId }!!,
-//                    modifier = Modifier.padding(innerPadding),
-////                    navController = navController,
-//                    onFavClicked = { anime ->
 //                        // Actualiza el estado de favorito del anime que recibe por parametro
 //                        val updatedAnimes = animes.map {
 //                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
@@ -255,9 +196,68 @@ fun OtakuverseApp(
 //                        // Actualiza la lista de Animes
 //                        animes = updatedAnimes.toMutableList() // Actualiza la lista
 //                        animeList = animes
-//                    }
-//                )
-//            }
+                    }
+                )
+            }
+            composable("fav_anime_list") {
+                // Lista de animes favoritos
+                ElementListScreen(
+                    modifier = Modifier.padding(innerPadding),
+                    navController = navController,
+//                    listAnime = animeList.filter { it.favorite }.toMutableList(),
+                    onFavClicked = { anime ->
+//                        // Actualiza el estado de favorito del anime que recibe por parametro
+//                        val updatedAnimes = animes.map {
+//                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
+//                            if (it.title == anime.title) {
+//                                // Cambia el atributo de favorito
+//                                it.copy(favorite = !it.favorite)
+//                            } else {
+//                                // En caso de no sea igual devuelve el iterador
+//                                it
+//                            }
+//                        }
+//                        // Actualiza la lista de Animes
+//                        animes = updatedAnimes.toMutableList() // Actualiza la lista
+//                        animeList = animes
+//                        // Esto se utiliza para controlar el buscador
+//                        if (textValue != "") {
+//                            animeList = if (textValue.trimIndent().isNotEmpty()) {
+//                                animes.filter { it.title.contains(textValue, ignoreCase = true) } as MutableList<Anime>
+//                            } else {
+//                                animes
+//                            }
+//                        }
+                    }
+                )
+            }
+            composable("details/{itemId}") { backStackEntry ->
+                // Por si no encuentra el heroe se pone ?: ""
+                val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
+                // Detalles Anime
+                DetailScreen(
+//                    animeList.find { it.title == itemId }!!,
+                    itemId,
+                    modifier = Modifier.padding(innerPadding),
+//                    navController = navController,
+                    onFavClicked = { anime ->
+//                        // Actualiza el estado de favorito del anime que recibe por parametro
+//                        val updatedAnimes = animes.map {
+//                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
+//                            if (it.title == anime.title) {
+//                                // Cambia el atributo de favorito
+//                                it.copy(favorite = !it.favorite)
+//                            } else {
+//                                // En caso de no sea igual devuelve el iterador
+//                                it
+//                            }
+//                        }
+//                        // Actualiza la lista de Animes
+//                        animes = updatedAnimes.toMutableList() // Actualiza la lista
+//                        animeList = animes
+                    }
+                )
+            }
             composable("profile") {
                 // Información del usuario
                 ProfileScreen(

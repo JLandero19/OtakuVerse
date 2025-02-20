@@ -1,6 +1,5 @@
 package com.example.otakuverse.repository
 
-import android.util.Log
 import com.example.otakuverse.api.AnimeApiService
 import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeDetail
@@ -10,10 +9,11 @@ class AnimeRepository(
 ) {
     suspend fun getTopAnime(page : Int = 1): Result<List<Anime>> {
         return try {
-            val response = apiService.getTopAnime(page)
+            val response = apiService.getTopAnime(p = page)
+
             if (response.isSuccessful) {
-                response.body()?.let { animelist ->
-                    Result.success(animelist)
+                response.body()?.let {
+                    Result.success(it)
                 } ?: Result.failure(Exception("El cuerpo de la respuesta es nulo"))
 
             } else {

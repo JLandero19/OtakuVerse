@@ -15,8 +15,8 @@ class AnimeApiConfig {
         private const val HOST_HEADER = "x-rapidapi-host"
         private const val KEY_HEADER = "x-rapidapi-key"
 
-        const val BASE_URL = "https://myanimelist.p.rapidapi.com/"
-        const val HOST = "myanimelist.p.rapidapi.com"
+        private const val BASE_URL = "https://myanimelist.p.rapidapi.com/"
+        private const val HOST = "myanimelist.p.rapidapi.com"
         private const val ACCESS_KEY = "27e07c91dbmshe3dd03433cf4e59p14d0a1jsn3848365a7a20"
 
         // Configura el objeto Json con opciones para Kotlinx.serialization
@@ -32,9 +32,10 @@ class AnimeApiConfig {
         ): Retrofit {
             // Interceptor para agregar cabeceras a todas las solicitudes
             val headerInterceptor = Interceptor { chain ->
-                val request: Request = chain.request().newBuilder()
-                    .addHeader(HOST_HEADER, host)
+                val request: Request = chain.request()
+                    .newBuilder()
                     .addHeader(KEY_HEADER, key)
+                    .addHeader(HOST_HEADER, host)
                     .build()
                 chain.proceed(request)
             }
