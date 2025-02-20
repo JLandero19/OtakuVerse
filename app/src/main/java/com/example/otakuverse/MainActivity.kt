@@ -115,8 +115,7 @@ fun OtakuverseApp(
 ) {
     // Solo tenemos una lista
     var animes by remember { mutableStateOf(Datasource.getListXtimes(1)) }
-    var userProfile by remember { mutableStateOf("") }
-    userProfile = sesion
+    var userProfile by remember { mutableStateOf(sesion) }
     var animeList by remember { mutableStateOf(animes) }
     var showSearchBar by remember { mutableStateOf(false) }
     var textValue = ""
