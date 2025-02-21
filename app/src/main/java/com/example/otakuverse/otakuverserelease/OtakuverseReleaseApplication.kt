@@ -25,7 +25,7 @@ class OtakuverseReleaseApplication: Application() {
         // Creación de la instancia del repositorio de preferencias de usuario
         userPreferencesRepository = UserPreferencesRepository(dataStore)
 
-        animeRepositoryDatabase = AnimeRepositoryDatabase(OtakuverseDatabase.getDatabase(this).animesDAO())
+        animeRepositoryDatabase = AnimeRepositoryDatabase(OtakuverseDatabase.getDatabase(this).animeDAO())
     }
 
     val animeRepository: AnimeRepository by lazy {

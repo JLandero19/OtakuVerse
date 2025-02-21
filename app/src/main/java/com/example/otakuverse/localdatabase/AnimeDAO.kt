@@ -5,20 +5,20 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.example.otakuverse.datamodel.Anime
+import com.example.otakuverse.datamodel.AnimeModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AnimeDAO {
     @Insert
-    suspend fun insertAnime(anime: Anime)
+    suspend fun insertAnime(anime: AnimeModel)
 
     @Delete
-    suspend fun deleteAnime(anime: Anime)
+    suspend fun deleteAnime(anime: AnimeModel)
 
     @Update
-    suspend fun update(anime: Anime)
+    suspend fun update(anime: AnimeModel)
 
     @Query("SELECT * from animes")
-    fun getAllAnimes(): Flow<List<Anime>>
+    fun getAllAnimes(): Flow<List<AnimeModel>>
 }

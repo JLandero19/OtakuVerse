@@ -1,14 +1,14 @@
 package com.example.otakuverse.repository
 
-import com.example.otakuverse.datamodel.Anime
+import com.example.otakuverse.datamodel.AnimeModel
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeInterface {
-    suspend fun insertAnime(anime: Anime)
+    suspend fun insertAnime(anime: AnimeModel)
 
-    suspend fun deleteAnime(anime: Anime)
+    suspend fun deleteAnime(anime: AnimeModel)
 
-    suspend fun update(anime: Anime)
+    suspend fun update(anime: AnimeModel)
 
-    val getAllAnimes: Flow<List<Anime>>
+    val getAllAnimes: Flow<List<AnimeModel>>
 }

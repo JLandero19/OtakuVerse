@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.otakuverse.datamodel.Anime
+import com.example.otakuverse.datamodel.AnimeModel
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
 import com.example.otakuverse.repository.AnimeRepository
 import com.example.otakuverse.repository.AnimeRepositoryDatabase
@@ -55,8 +56,9 @@ class ElementListViewModel (
     }
 
     fun saveAnime(anime: Anime) {
+        val animeModel = AnimeModel(anime.myanimelist_id,anime.aired_on, anime.members, anime.myanimelist_url, anime.picture_url, anime.rank, anime.score, anime.title, anime.type)
         viewModelScope.launch {
-            animeRepositoryDatabase.insertAnime(anime)
+            animeRepositoryDatabase.insertAnime(animeModel)
         }
     }
 }
