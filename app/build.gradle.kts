@@ -5,7 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 
     // Room
-    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+    id("com.google.devtools.ksp")
+
 }
 
 android {
@@ -72,17 +73,42 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    //Coil
+    // Coil
     implementation(libs.coil.compose)
 
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
     // Room
+//    implementation(libs.androidx.room.runtime)
+//    implementation(libs.androidx.navigation.compose)
+//    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+//    implementation(libs.androidx.room.ktx)
+
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.navigation.compose)
-    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    ksp(libs.room.compiler)
+
+    // If this project only uses Java source, use the Java annotationProcessor
+    // No additional plugins are necessary
+    annotationProcessor(libs.room.compiler)
+
+    // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.androidx.room.ktx)
+
+    // optional - RxJava2 support for Room
+    implementation(libs.androidx.room.rxjava2)
+
+    // optional - RxJava3 support for Room
+    implementation(libs.androidx.room.rxjava3)
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation(libs.androidx.room.guava)
+
+    // optional - Test helpers
+    testImplementation(libs.androidx.room.testing)
+
+    // optional - Paging 3 Integration
+    implementation(libs.androidx.room.paging)
 
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.material3.window.size)

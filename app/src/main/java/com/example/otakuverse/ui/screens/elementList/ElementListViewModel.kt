@@ -1,5 +1,6 @@
 package com.example.otakuverse.ui.screens.elementList
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -13,6 +14,7 @@ import com.example.otakuverse.repository.AnimeRepository
 import com.example.otakuverse.repository.AnimeRepositoryDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ElementListViewModel (
@@ -36,7 +38,7 @@ class ElementListViewModel (
         ElementListUiState()
     )
 
-    val uiState: StateFlow<ElementListUiState> = _uiState
+    val uiState: StateFlow<ElementListUiState> = _uiState.asStateFlow()
 
     init {
         topAnime()
@@ -58,7 +60,12 @@ class ElementListViewModel (
     fun saveAnime(anime: Anime) {
         val animeModel = AnimeModel(anime.myanimelist_id,anime.aired_on, anime.members, anime.myanimelist_url, anime.picture_url, anime.rank, anime.score, anime.title, anime.type)
         viewModelScope.launch {
-            animeRepositoryDatabase.insertAnime(animeModel)
+            try {
+                animeRepositoryDatabase.insertAnime(animeModel)
+            } catch (e: Exception) {
+                // Aquí puedes manejar cualquier error de inserción o mostrar un mensaje al usuario
+                Log.d("SaveAnime", "Error al guardar anime: ${e.message}")
+            }
         }
     }
 }

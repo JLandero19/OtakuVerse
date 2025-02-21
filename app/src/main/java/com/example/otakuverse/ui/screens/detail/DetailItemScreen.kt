@@ -50,32 +50,32 @@ fun DetailScreen(
     onFavClicked: (Anime) -> Unit = {},
     animeVM: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
 ) {
-    val uiState = animeVM.uiState.collectAsState()
+    val uiState by animeVM.uiState.collectAsState()
     LaunchedEffect(id) {
         animeVM.animeDetail(id)
     }
 
     // Verifica en los logs si el estado cambia
-    Log.d("DetailScreen", "UI State: ${uiState.value}")
+    Log.d("DetailScreen", "UI State: $uiState")
     Log.d("DetailScreen", "id: $id")
 
     val windowSize = getWindowSizeClass(LocalContext.current as Activity)
     when {
-        uiState.value.isLoading -> {
+        uiState.isLoading -> {
             // Mostrar un indicador de progreso mientras se carga
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
-        uiState.value.errorMessage != null -> {
+        uiState.errorMessage != null -> {
             // Mostrar mensaje de error
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Error: ${uiState.value.errorMessage}", color = Color.Red)
+                Text(text = "Error: ${uiState.errorMessage}", color = Color.Red)
             }
         }
         else -> {
             // Mostrar los detalles del anime
-            val anime = uiState.value.anime
+            val anime = uiState.anime
             if (anime != null) {
                 LazyColumn(modifier = modifier) {
                     item {
@@ -163,7 +163,7 @@ fun CompactDetailScreen(
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)
             )
             Text(
-                text = if (anime.information.episodes.toString() == "null") "..." else anime.information.episodes.toString(),
+                text = if (anime.information.episodes == "null") "..." else anime.information.episodes,
                 fontSize = 18.sp
             )
         }

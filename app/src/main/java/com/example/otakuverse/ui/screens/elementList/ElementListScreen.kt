@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -32,8 +31,6 @@ import com.example.otakuverse.R
 import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.ui.components.AnimeCard
 import com.example.otakuverse.ui.components.StandardAlertDialog
-import com.example.otakuverse.ui.screens.detail.CompactDetailScreen
-import com.example.otakuverse.ui.screens.detail.MedExpDetailScreen
 import com.example.otakuverse.utils.getWindowSizeClass
 
 @SuppressLint("ContextCastToActivity")
@@ -47,10 +44,10 @@ fun ElementListScreen(
 ) {
     val myAnime by remember { mutableStateOf("") }
     var openAlertDialog by remember { mutableStateOf(false) }
-    val uiState = listAnimeVM.uiState.collectAsState()
+    val uiState by listAnimeVM.uiState.collectAsState()
 
     // Log para depurar la respuesta
-    Log.d("TOPANIMES", "${uiState.value.topAnime}")
+    Log.d("TOPANIMES", "${uiState.topAnime}")
 
     // Dialog borrado de lista de favoritos.
     if (openAlertDialog) {
@@ -78,16 +75,16 @@ fun ElementListScreen(
     }
 
     when {
-        uiState.value.isLoading -> {
+        uiState.isLoading -> {
             // Mostrar un indicador de progreso mientras se carga
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()
             }
         }
-        uiState.value.userMessage != null -> {
+        uiState.userMessage != null -> {
             // Mostrar mensaje de error
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = "Error: ${uiState.value.userMessage}", color = Color.Red)
+                Text(text = "Error: ${uiState.userMessage}", color = Color.Red)
             }
         }
         else -> {
@@ -96,7 +93,7 @@ fun ElementListScreen(
                     columns = GridCells.Fixed(columns), // Esto asegura dos columnas
                     contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
                 ) {
-                    items(uiState.value.topAnime.shuffled()) { anime ->
+                    items(uiState.topAnime.shuffled()) { anime ->
                         AnimeCard(
                             anime,
                             onClickCard = { navController.navigate("details/${anime.myanimelist_id}") },

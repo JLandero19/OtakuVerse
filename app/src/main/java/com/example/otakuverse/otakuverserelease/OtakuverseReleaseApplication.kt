@@ -19,6 +19,10 @@ class OtakuverseReleaseApplication: Application() {
     lateinit var userPreferencesRepository: UserPreferencesRepository
     lateinit var animeRepositoryDatabase: AnimeRepositoryDatabase
 
+    val animeRepository: AnimeRepository by lazy {
+        AnimeRepository(AnimeApiConfig.provideRetrofit().create(AnimeApiService::class.java))
+    }
+
     // Contenedor de dependencias manuales que se usa por completo en la app
     override fun onCreate() {
         super.onCreate()
@@ -26,9 +30,5 @@ class OtakuverseReleaseApplication: Application() {
         userPreferencesRepository = UserPreferencesRepository(dataStore)
 
         animeRepositoryDatabase = AnimeRepositoryDatabase(OtakuverseDatabase.getDatabase(this).animeDAO())
-    }
-
-    val animeRepository: AnimeRepository by lazy {
-        AnimeRepository(AnimeApiConfig.provideRetrofit().create(AnimeApiService::class.java))
     }
 }

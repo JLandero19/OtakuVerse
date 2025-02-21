@@ -59,7 +59,6 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var userPreferencesRepository: UserPreferencesRepository
 
-    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
