@@ -25,6 +25,7 @@ retrofit2KotlinxSerializationConverter = "1.0.0"
 retrofit2KotlinxSerialization = "2.1.10"
 kotlinCoroutines = "1.10.1"
 coilCompose = "2.7.0"
+lifecycleExtensions = "2.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,6 +63,7 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 retrofit2-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinxSerializationConverter" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-lifecycle-extensions = { group = "androidx.lifecycle", name = "lifecycle-extensions", version.ref = "lifecycleExtensions" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

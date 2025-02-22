@@ -11,15 +11,13 @@ import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeModel
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
 import com.example.otakuverse.repository.AnimeRepository
-import com.example.otakuverse.repository.AnimeRepositoryDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ElementListViewModel (
-    private val animeRepository: AnimeRepository,
-    private val animeRepositoryDatabase: AnimeRepositoryDatabase
+    private val animeRepository: AnimeRepository
 ) : ViewModel() {
 
     companion object {
@@ -27,8 +25,7 @@ class ElementListViewModel (
             initializer {
                 val application = (this[APPLICATION_KEY] as OtakuverseReleaseApplication)
                 ElementListViewModel(
-                    application.animeRepository,
-                    application.animeRepositoryDatabase
+                    application.animeRepository
                 )
             }
         }
@@ -61,7 +58,7 @@ class ElementListViewModel (
         val animeModel = AnimeModel(anime.myanimelist_id,anime.aired_on, anime.members, anime.myanimelist_url, anime.picture_url, anime.rank, anime.score, anime.title, anime.type)
         viewModelScope.launch {
             try {
-                animeRepositoryDatabase.insertAnime(animeModel)
+                animeRepository.insertAnime(animeModel)
             } catch (e: Exception) {
                 // Aquí puedes manejar cualquier error de inserción o mostrar un mensaje al usuario
                 Log.d("SaveAnime", "Error al guardar anime: ${e.message}")

@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "animes")
 data class AnimeModel(
     @PrimaryKey
-    @ColumnInfo(name = "myanimelist_id")
     val myanimelistId: Int,
     @ColumnInfo(name = "aired_on")
     val airedOn: String,
