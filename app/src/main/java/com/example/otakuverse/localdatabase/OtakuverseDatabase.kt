@@ -18,6 +18,7 @@ abstract class OtakuverseDatabase : RoomDatabase() {
             // if the Instance is not null, return it, otherwise create a new database instance.
             return Instance ?: synchronized(this) {
                 Room.databaseBuilder(context, OtakuverseDatabase::class.java, "otaku_db")
+                    .fallbackToDestructiveMigration() // Evitar errores si hay cambios en el esquema
                     .build()
                     .also { Instance = it }
             }

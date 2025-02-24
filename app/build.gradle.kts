@@ -5,8 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 
     // Room
-    id("com.google.devtools.ksp")
-
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
 }
 
 android {
@@ -16,7 +15,7 @@ android {
     defaultConfig {
         applicationId = "com.example.otakuverse"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -82,8 +81,8 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.navigation.compose)
-//    ksp(libs.room.compiler)
-    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    ksp(libs.room.compiler)
+//    ksp("androidx.room:room-compiler:2.6.1")
     implementation(libs.androidx.room.ktx)
 
     // SplashScreen
