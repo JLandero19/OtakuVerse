@@ -1,11 +1,13 @@
 package com.example.otakuverse.ui.screens.detail
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
 import com.example.otakuverse.repository.AnimeRepository
 import com.example.otakuverse.ui.screens.elementList.ElementListUiState

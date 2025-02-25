@@ -39,4 +39,7 @@
     <string name="comment_title">Comentarios</string>
     <string name="icon_phone">Icono Teléfono</string>
     <string name="icon_mail">Icono Email</string>
+    <string name="save">Guardar</string>
+    <string name="message_fav_okey">Se ha añadido el anime a favoritos</string>
+    <string name="message_fav_error">El anime ya está entre tus favoritos</string>
 </resources>

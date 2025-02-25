@@ -18,5 +18,4 @@ data class Anime(
     @SerialName("score") val score: Double,
     @SerialName("title") val title: String,
     @SerialName("type") val type: String,
-    val favorite: Boolean = true
 )

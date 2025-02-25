@@ -34,6 +34,7 @@ import com.example.otakuverse.ui.screens.AboutScreen
 import com.example.otakuverse.ui.screens.detail.DetailScreen
 import com.example.otakuverse.ui.screens.elementList.ElementListScreen
 import com.example.otakuverse.ui.screens.LoginScreen
+import com.example.otakuverse.ui.screens.favList.FavListScreen
 import com.example.otakuverse.ui.screens.profile.ProfileScreen
 import kotlinx.coroutines.flow.map
 
@@ -179,82 +180,26 @@ fun OtakuverseApp(
                 ElementListScreen(
                     modifier = Modifier.padding(innerPadding),
                     navController = navController,
-//                    listAnime = animeList,
-                    onFavClicked = { anime ->
-//                        // Actualiza el estado de favorito del anime que recibe por parametro
-//                        val updatedAnimes = animes.map {
-//                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
-//                            if (it.title == anime.title) {
-//                                // Cambia el atributo de favorito
-//                                it.copy(favorite = !it.favorite)
-//                            } else {
-//                                // En caso de no sea igual devuelve el iterador
-//                                it
-//                            }
-//                        }
-//                        // Actualiza la lista de Animes
-//                        animes = updatedAnimes.toMutableList() // Actualiza la lista
-//                        animeList = animes
-                    }
                 )
             }
             composable("fav_anime_list") {
                 // Lista de animes favoritos
-                ElementListScreen(
+                FavListScreen(
                     modifier = Modifier.padding(innerPadding),
                     navController = navController,
-//                    listAnime = animeList.filter { it.favorite }.toMutableList(),
-                    onFavClicked = { anime ->
-//                        // Actualiza el estado de favorito del anime que recibe por parametro
-//                        val updatedAnimes = animes.map {
-//                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
-//                            if (it.title == anime.title) {
-//                                // Cambia el atributo de favorito
-//                                it.copy(favorite = !it.favorite)
-//                            } else {
-//                                // En caso de no sea igual devuelve el iterador
-//                                it
-//                            }
-//                        }
-//                        // Actualiza la lista de Animes
-//                        animes = updatedAnimes.toMutableList() // Actualiza la lista
-//                        animeList = animes
-//                        // Esto se utiliza para controlar el buscador
-//                        if (textValue != "") {
-//                            animeList = if (textValue.trimIndent().isNotEmpty()) {
-//                                animes.filter { it.title.contains(textValue, ignoreCase = true) } as MutableList<Anime>
-//                            } else {
-//                                animes
-//                            }
-//                        }
-                    }
                 )
             }
-            composable("details/{itemId}") { backStackEntry ->
+            composable("details/{itemId}/{favorite}") { backStackEntry ->
                 // Por si no encuentra el heroe se pone ?: ""
                 val itemId = backStackEntry.arguments?.getString("itemId") ?: ""
+                val favorite = backStackEntry.arguments?.getBoolean("favorite") ?: false
                 // Detalles Anime
                 DetailScreen(
 //                    animeList.find { it.title == itemId }!!,
                     itemId.toInt(),
+                    favorite = favorite,
                     modifier = Modifier.padding(innerPadding),
 //                    navController = navController,
-                    onFavClicked = { anime ->
-//                        // Actualiza el estado de favorito del anime que recibe por parametro
-//                        val updatedAnimes = animes.map {
-//                            // Busca el anime por el titulo, pero funcionaría igual buscando por ID
-//                            if (it.title == anime.title) {
-//                                // Cambia el atributo de favorito
-//                                it.copy(favorite = !it.favorite)
-//                            } else {
-//                                // En caso de no sea igual devuelve el iterador
-//                                it
-//                            }
-//                        }
-//                        // Actualiza la lista de Animes
-//                        animes = updatedAnimes.toMutableList() // Actualiza la lista
-//                        animeList = animes
-                    }
                 )
             }
             composable("profile") {

@@ -45,9 +45,10 @@ import com.example.otakuverse.utils.getWindowSizeClass
 @Composable
 fun DetailScreen(
     id: Int,
+    favorite: Boolean = false,
     modifier: Modifier,
 //    navController: NavHostController,
-    onFavClicked: (Anime) -> Unit = {},
+    onFavClicked: () -> Unit = {},
     animeVM: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
 ) {
     val uiState by animeVM.uiState.collectAsState()
@@ -80,8 +81,8 @@ fun DetailScreen(
                 LazyColumn(modifier = modifier) {
                     item {
                         when (windowSize) {
-                            WindowWidthSizeClass.Compact -> CompactDetailScreen(anime, onFavClick = onFavClicked)
-                            else -> MedExpDetailScreen(anime, onFavClick = onFavClicked)
+                            WindowWidthSizeClass.Compact -> CompactDetailScreen(anime, favorite, onFavClick = onFavClicked)
+                            else -> MedExpDetailScreen(anime, favorite, onFavClick = onFavClicked)
                         }
                     }
                 }
@@ -93,8 +94,9 @@ fun DetailScreen(
 @Composable
 fun CompactDetailScreen(
     anime: AnimeDetail,
+    favorite: Boolean = false,
 //    navController: NavHostController,
-    onFavClick: (Anime) -> Unit = {}
+    onFavClick: () -> Unit = {}
 ) {
     var openAlertDialog by remember { mutableStateOf(false) }
 
@@ -116,13 +118,9 @@ fun CompactDetailScreen(
         AnimeDetailCard(
             anime,
             modifier = Modifier.width(200.dp).height(300.dp),
+            favorite = favorite,
             onClickFav = {
-//                if (!anime.favorite) {
-//                    onFavClick(anime)
-//                } else {
-//                    // Solo lo quiero utilizar para eliminar
-//                    openAlertDialog = true
-//                }
+                onFavClick()
             }
         )
         Column (modifier = Modifier.padding(8.dp)) {
@@ -202,8 +200,9 @@ fun CompactDetailScreen(
 @Composable
 fun MedExpDetailScreen(
     anime: AnimeDetail,
+    favorite: Boolean = false,
 //    navController: NavHostController,
-    onFavClick: (Anime) -> Unit = {}
+    onFavClick: () -> Unit = {}
 ) {
     var openAlertDialog by remember { mutableStateOf(false) }
 
@@ -225,13 +224,9 @@ fun MedExpDetailScreen(
                 AnimeDetailCard(
                     anime,
                     modifier = Modifier.width(200.dp).height(300.dp),
+                    favorite = favorite,
                     onClickFav = {
-//                        if (!anime.favorite) {
-//                            onFavClick(anime)
-//                        } else {
-//                            // Solo lo quiero utilizar para eliminar
-//                            openAlertDialog = true
-//                        }
+                        onFavClick()
                     }
                 )
                 Column (modifier = Modifier.padding(8.dp)) {

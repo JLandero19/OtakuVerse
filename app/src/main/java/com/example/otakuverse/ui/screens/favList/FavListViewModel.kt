@@ -1,4 +1,4 @@
-package com.example.otakuverse.ui.screens.elementList
+package com.example.otakuverse.ui.screens.favList
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ElementListViewModel (
+class FavListViewModel (
     private val animeRepository: AnimeRepository
 ) : ViewModel() {
 
@@ -24,7 +24,7 @@ class ElementListViewModel (
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val application = (this[APPLICATION_KEY] as OtakuverseReleaseApplication)
-                ElementListViewModel(
+                FavListViewModel(
                     application.animeRepository
                 )
             }
@@ -32,53 +32,21 @@ class ElementListViewModel (
     }
 
     private val _uiState = MutableStateFlow(
-        ElementListUiState()
+        FavListUiState()
     )
 
-    val uiState: StateFlow<ElementListUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<FavListUiState> = _uiState.asStateFlow()
 
     init {
-        topAnime()
-    }
-
-    private fun topAnime() {
         loadFavListAnime()
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true) // Mostrar estado de carga
-            try {
-                animeRepository.getTopAnime().map { result ->
-                    _uiState.value = ElementListUiState( topAnime = result.shuffled().toMutableList(), isLoading = false )
-                }
-            } catch (e: Exception) {
-                _uiState.value = ElementListUiState(isLoading = false, userMessage = e.message)
-            }
-        }
     }
 
     private fun loadFavListAnime() {
         viewModelScope.launch {
             animeRepository.getAllAnimes.collect { favList ->
                 _uiState.update {
-                    it.copy(favListAnime = favList.toMutableList())
+                    it.copy(favListAnime = favList.toMutableList(), isLoading = false)
                 }
-            }
-        }
-    }
-
-    fun saveAnime(anime: Anime) {
-        viewModelScope.launch {
-            try {
-                animeRepository.insertAnime(anime)
-                _uiState.update { currentState ->
-                    val updatedFavList = currentState.favListAnime.toMutableList()  // Convertir la lista inmutable a mutable
-                    updatedFavList.add(anime)  // Agregar el nuevo anime
-                    currentState.copy(
-                        favListAnime = updatedFavList  // Usamos el operador + para agregar el elemento
-                    )
-                }
-            } catch (e: Exception) {
-                // Aquí puedes manejar cualquier error de inserción o mostrar un mensaje al usuario
-                Log.d("SaveAnime", "Error al guardar anime: ${e.message}")
             }
         }
     }

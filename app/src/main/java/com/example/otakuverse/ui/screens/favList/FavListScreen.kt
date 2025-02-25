@@ -1,4 +1,4 @@
-package com.example.otakuverse.ui.screens.elementList
+package com.example.otakuverse.ui.screens.favList
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -34,17 +34,14 @@ import com.example.otakuverse.utils.getWindowSizeClass
 
 @SuppressLint("ContextCastToActivity")
 @Composable
-fun ElementListScreen(
+fun FavListScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    listAnimeVM: ElementListViewModel = viewModel(factory = ElementListViewModel.Factory),
+    favListAnimeVM: FavListViewModel = viewModel(factory = FavListViewModel.Factory),
 ) {
     val myAnime by remember { mutableStateOf("") }
     var openAlertDialog by remember { mutableStateOf(false) }
-    val uiState by listAnimeVM.uiState.collectAsState()
-
-    // Log para depurar la respuesta
-    Log.d("TOPANIMES", "${uiState.topAnime}")
+    val uiState by favListAnimeVM.uiState.collectAsState()
 
     // Dialog borrado de lista de favoritos.
     if (openAlertDialog) {
@@ -90,17 +87,13 @@ fun ElementListScreen(
                     columns = GridCells.Fixed(columns), // Esto asegura dos columnas
                     contentPadding = PaddingValues(8.dp) // Espaciado alrededor de la rejilla
                 ) {
-                    items(uiState.topAnime) { anime ->
+                    items(uiState.favListAnime) { anime ->
                         AnimeCard(
                             anime,
                             favorite = uiState.favListAnime.contains(anime),
                             onClickCard = { navController.navigate("details/${anime.myanimelist_id}/${uiState.favListAnime.contains(anime)}") },
                             onClickFav = {
-                                if (!uiState.favListAnime.contains(anime)) {
-                                    listAnimeVM.saveAnime(anime)
-                                } else {
-                                    listAnimeVM.deleteAnime(anime)
-                                }
+                                favListAnimeVM.deleteAnime(anime)
                             },
                         )
                     }

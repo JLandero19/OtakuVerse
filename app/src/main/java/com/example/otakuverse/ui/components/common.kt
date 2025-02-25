@@ -2,6 +2,7 @@
 
 package com.example.otakuverse.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -312,6 +313,8 @@ fun AsyncImageAnime(
     favorite: Boolean = false,
     onClickFav: () -> Unit = {}
 ) {
+    val context = LocalContext.current
+    val validate = if (!favorite) stringResource(R.string.message_fav_okey) else stringResource(R.string.message_fav_error)
     val contentDescription =
         if (contentDesc == "")
             stringResource(id = R.string.default_content_description)
@@ -332,7 +335,10 @@ fun AsyncImageAnime(
             )
             // Botón de acción con ícono
             IconButton(
-                onClick = onClickFav,
+                onClick = {
+                    onClickFav()
+                    Toast.makeText(context, validate, Toast.LENGTH_SHORT).show()
+                },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(6.dp)
@@ -348,24 +354,6 @@ fun AsyncImageAnime(
                     tint = MaterialTheme.colorScheme.error,
                 )
             }
-
-            IconButton(
-                onClick = {},
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(6.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        shape = RoundedCornerShape(50.dp)
-                    ),
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Star,
-                    modifier = Modifier.size(24.dp),
-                    contentDescription = stringResource(R.string.save),
-                    tint = MaterialTheme.colorScheme.tertiary,
-                )
-            }
         }
     }
 }
@@ -373,10 +361,10 @@ fun AsyncImageAnime(
 @Composable
 fun AnimeCard(
     anime: Anime,
+    favorite: Boolean = false,
     modifier: Modifier = Modifier,
     onClickCard: () -> Unit = {},
     onClickFav: () -> Unit = {},
-    onClickSave: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -385,19 +373,12 @@ fun AnimeCard(
         onClick = onClickCard
     ) {
         // Imagen del anime
-//        ImageAnime(
-//            modifier = Modifier
-//                .fillMaxSize()
-//                .height(250.dp),
-//            drawable = Datasource.getDrawableIdByName(anime.image_url),
-//            favorite = false,
-//            onClickFav = onClickFav
-//        )
-        // Imagen del anime
         AsyncImageAnime(
-            modifier = Modifier.fillMaxSize().height(250.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(250.dp),
             image = anime.picture_url,
-            favorite = false,
+            favorite = favorite,
             onClickFav = onClickFav
         )
     }
@@ -406,6 +387,7 @@ fun AnimeCard(
 @Composable
 fun AnimeDetailCard(
     anime: AnimeDetail?,
+    favorite: Boolean = false,
     modifier: Modifier = Modifier,
     onClickCard: () -> Unit = {},
     onClickFav: () -> Unit = {}
@@ -432,8 +414,7 @@ fun AnimeDetailCard(
                     .fillMaxSize()
                     .height(250.dp),
                 image = it.pictureUrl,
-                favorite = false,
-                onClickFav = onClickFav
+                favorite = favorite,
             )
         }
     }
