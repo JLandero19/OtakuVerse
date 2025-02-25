@@ -5,6 +5,7 @@ import com.example.otakuverse.ui.screens.elementList.UserMessages
 
 data class DetailUiState(
     val anime: AnimeDetail? = null,
+    var favorite: Boolean = false,
     val isLoading: Boolean = false,
     val errorMessage: String? = null
 )

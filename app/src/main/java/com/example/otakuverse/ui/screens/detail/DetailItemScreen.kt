@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.otakuverse.R
-import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeDetail
 import com.example.otakuverse.ui.components.AnimeDetailCard
 import com.example.otakuverse.ui.components.CommentStandard
@@ -48,7 +47,6 @@ fun DetailScreen(
     favorite: Boolean = false,
     modifier: Modifier,
 //    navController: NavHostController,
-    onFavClicked: () -> Unit = {},
     animeVM: DetailViewModel = viewModel(factory = DetailViewModel.Factory),
 ) {
     val uiState by animeVM.uiState.collectAsState()
@@ -81,8 +79,8 @@ fun DetailScreen(
                 LazyColumn(modifier = modifier) {
                     item {
                         when (windowSize) {
-                            WindowWidthSizeClass.Compact -> CompactDetailScreen(anime, favorite, onFavClick = onFavClicked)
-                            else -> MedExpDetailScreen(anime, favorite, onFavClick = onFavClicked)
+                            WindowWidthSizeClass.Compact -> CompactDetailScreen(anime, favorite)
+                            else -> MedExpDetailScreen(anime, favorite)
                         }
                     }
                 }
@@ -119,9 +117,6 @@ fun CompactDetailScreen(
             anime,
             modifier = Modifier.width(200.dp).height(300.dp),
             favorite = favorite,
-            onClickFav = {
-                onFavClick()
-            }
         )
         Column (modifier = Modifier.padding(8.dp)) {
             Text(
@@ -225,9 +220,6 @@ fun MedExpDetailScreen(
                     anime,
                     modifier = Modifier.width(200.dp).height(300.dp),
                     favorite = favorite,
-                    onClickFav = {
-                        onFavClick()
-                    }
                 )
                 Column (modifier = Modifier.padding(8.dp)) {
                     Text(

@@ -13,6 +13,7 @@ import com.example.otakuverse.repository.AnimeRepository
 import com.example.otakuverse.ui.screens.elementList.ElementListUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DetailViewModel (
@@ -48,5 +49,4 @@ class DetailViewModel (
             }
         }
     }
-
 }

@@ -310,6 +310,7 @@ fun AsyncImageAnime(
     contentScale: ContentScale = ContentScale.FillBounds,
     image: String,
     contentDesc: String = "",
+    useButton: Boolean = true,
     favorite: Boolean = false,
     onClickFav: () -> Unit = {}
 ) {
@@ -337,7 +338,8 @@ fun AsyncImageAnime(
             IconButton(
                 onClick = {
                     onClickFav()
-                    Toast.makeText(context, validate, Toast.LENGTH_SHORT).show()
+                    if (useButton) Toast.makeText(context, validate, Toast.LENGTH_SHORT).show()
+
                 },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
@@ -390,7 +392,6 @@ fun AnimeDetailCard(
     favorite: Boolean = false,
     modifier: Modifier = Modifier,
     onClickCard: () -> Unit = {},
-    onClickFav: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
@@ -414,6 +415,7 @@ fun AnimeDetailCard(
                     .fillMaxSize()
                     .height(250.dp),
                 image = it.pictureUrl,
+                useButton = false,
                 favorite = favorite,
             )
         }
