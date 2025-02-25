@@ -4,6 +4,7 @@ import com.example.otakuverse.datamodel.Anime
 
 data class ElementListUiState(
     val topAnime: MutableList<Anime> = mutableListOf(),
+    val favListAnime: MutableList<Anime> = mutableListOf(),
     val isLoading: Boolean = true,
     val userMessage: String? = null
 )

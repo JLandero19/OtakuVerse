@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.otakuverse.datamodel.Anime
-import com.example.otakuverse.datamodel.AnimeModel
 import com.example.otakuverse.otakuverserelease.OtakuverseReleaseApplication
 import com.example.otakuverse.repository.AnimeRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ElementListViewModel (
@@ -39,6 +39,7 @@ class ElementListViewModel (
 
     init {
         topAnime()
+        loadFavListAnime()
     }
 
     private fun topAnime() {
@@ -54,11 +55,20 @@ class ElementListViewModel (
         }
     }
 
+    private fun loadFavListAnime() {
+        viewModelScope.launch {
+            animeRepository.getAllAnimes.collect { favList ->
+                _uiState.update {
+                    it.copy(favListAnime = favList.toMutableList())
+                }
+            }
+        }
+    }
+
     fun saveAnime(anime: Anime) {
-        val animeModel = AnimeModel(anime.myanimelist_id,anime.aired_on, anime.members, anime.myanimelist_url, anime.picture_url, anime.rank, anime.score, anime.title, anime.type)
         viewModelScope.launch {
             try {
-                animeRepository.insertAnime(animeModel)
+                animeRepository.insertAnime(anime)
             } catch (e: Exception) {
                 // Aquí puedes manejar cualquier error de inserción o mostrar un mensaje al usuario
                 Log.d("SaveAnime", "Error al guardar anime: ${e.message}")

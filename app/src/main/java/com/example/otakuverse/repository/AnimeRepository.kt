@@ -3,14 +3,13 @@ package com.example.otakuverse.repository
 import com.example.otakuverse.api.AnimeApiService
 import com.example.otakuverse.datamodel.Anime
 import com.example.otakuverse.datamodel.AnimeDetail
-import com.example.otakuverse.datamodel.AnimeModel
 import com.example.otakuverse.localdatabase.AnimeDAO
 import kotlinx.coroutines.flow.Flow
 
 class AnimeRepository(
     private val apiService: AnimeApiService,
     private val animeDAO: AnimeDAO
-) : AnimeInterface {
+) {
     suspend fun getTopAnime(page : Int = 1): Result<List<Anime>> {
         return try {
             val response = apiService.getTopAnime(p = page)
@@ -44,11 +43,11 @@ class AnimeRepository(
     }
 
     // Métodos sacados de la interfaces
-    override suspend fun insertAnime(anime: AnimeModel) = animeDAO.insertAnime(anime)
+    suspend fun insertAnime(anime: Anime) = animeDAO.insertAnime(anime)
 
-    override suspend fun deleteAnime(anime: AnimeModel) = animeDAO.deleteAnime(anime)
+    suspend fun deleteAnime(anime: Anime) = animeDAO.deleteAnime(anime)
 
-    override suspend fun update(anime: AnimeModel) = animeDAO.update(anime)
+    suspend fun update(anime: Anime) = animeDAO.update(anime)
 
-    override val getAllAnimes: Flow<List<AnimeModel>> = animeDAO.getAllAnimes()
+    val getAllAnimes: Flow<List<Anime>> = animeDAO.getAllAnimes()
 }
