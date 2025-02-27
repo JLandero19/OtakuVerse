@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.otakuverse.datamodel.Anime
+import com.example.otakuverse.datamodel.Comment
 
-@Database(entities = [Anime::class], version = 2, exportSchema = false)
+@Database(entities = [Anime::class, Comment::class], version = 5, exportSchema = false)
 abstract class OtakuverseDatabase : RoomDatabase() {
 
     abstract fun animeDAO(): AnimeDAO
+    abstract fun commentDAO(): CommentDAO
 
     companion object {
         @Volatile

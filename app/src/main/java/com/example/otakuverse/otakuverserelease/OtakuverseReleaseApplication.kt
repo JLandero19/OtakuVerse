@@ -9,6 +9,7 @@ import com.example.otakuverse.data.UserPreferences
 import com.example.otakuverse.data.UserPreferencesRepository
 import com.example.otakuverse.localdatabase.OtakuverseDatabase
 import com.example.otakuverse.repository.AnimeRepository
+import com.example.otakuverse.repository.CommentRepository
 
 // Datastore. Configuración básica de la app.
 val Context.dataStore by preferencesDataStore(name = UserPreferences.SETTINGS_FILE)
@@ -21,6 +22,12 @@ class OtakuverseReleaseApplication: Application() {
         AnimeRepository(
             apiService = AnimeApiConfig.provideRetrofit().create(AnimeApiService::class.java),
             animeDAO = OtakuverseDatabase.getDatabase(this).animeDAO()
+        )
+    }
+
+    val commentRepository by lazy {
+        CommentRepository(
+            commentDAO = OtakuverseDatabase.getDatabase(this).commentDAO()
         )
     }
 

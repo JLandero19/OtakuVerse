@@ -15,9 +15,9 @@ data class Information(
 //    @SerialName("licensors") val licensors: String,
 //    @SerialName("studios") val studios: List<Studio>,
 //    @SerialName("source") val source: String,
-    @SerialName("genre") val genre: String,
+//    @SerialName("genre") val genre: String,
     @SerialName("duration") val duration: String,
     @SerialName("rating") val rating: String,
-    @SerialName("genres") val genres: List<Genre>,
+//    @SerialName("genres") val genres: List<Genre>,
 //    @SerialName("demographic") val demographic: List<Demographic>
 )

@@ -18,7 +18,7 @@ import java.io.IOException
 class UserPreferencesRepository(
     private val dataStore: DataStore<Preferences>
 ){
-    private companion object {
+    companion object {
         val USERNAME = stringPreferencesKey("username")
         val THEMEMODE = booleanPreferencesKey("themeMode")
         const val TAG = "UserPreferencesRepository"

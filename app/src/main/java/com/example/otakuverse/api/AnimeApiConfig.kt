@@ -18,8 +18,8 @@ class AnimeApiConfig {
         private const val BASE_URL = "https://myanimelist.p.rapidapi.com/"
         private const val HOST = "myanimelist.p.rapidapi.com"
 //        private const val ACCESS_KEY = "27e07c91dbmshe3dd03433cf4e59p14d0a1jsn3848365a7a20"
-//        private const val ACCESS_KEY = "9e9c27bd0amshbda0c0601b47d9bp177f62jsn0e2a70c97f2f"
-        private const val ACCESS_KEY = "199ec9a7e6msh87c61419e175409p157b55jsn63cebcb56aa9"
+        private const val ACCESS_KEY = "de194dc7e4msh560ff4a3ab8c4b2p1b8a0cjsn0995d47e813b"
+//        private const val ACCESS_KEY = "199ec9a7e6msh87c61419e175409p157b55jsn63cebcb56aa9"
 
         // Configura el objeto Json con opciones para Kotlinx.serialization
         private val json = Json {

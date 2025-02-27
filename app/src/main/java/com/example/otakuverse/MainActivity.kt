@@ -197,6 +197,7 @@ fun OtakuverseApp(
                 DetailScreen(
 //                    animeList.find { it.title == itemId }!!,
                     itemId.toInt(),
+                    session = userProfile,
                     favorite = favorite,
                     modifier = Modifier.padding(innerPadding),
 //                    navController = navController,

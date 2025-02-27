@@ -41,4 +41,9 @@
     <string name="save">Save</string>
     <string name="message_fav_okey">The anime has been added to favorites</string>
     <string name="message_fav_error">The anime is already among your favorites</string>
+    <string name="not_found_comments">Not found comments</string>
+    <string name="add_comment">Add comment</string>
+    <string name="comment_label">Write comment</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

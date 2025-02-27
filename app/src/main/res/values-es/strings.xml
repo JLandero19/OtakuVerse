@@ -42,4 +42,9 @@
     <string name="save">Guardar</string>
     <string name="message_fav_okey">Se ha añadido el anime a favoritos</string>
     <string name="message_fav_error">El anime ya está entre tus favoritos</string>
+    <string name="not_found_comments">No se encontraron comentarios</string>
+    <string name="add_comment">Add comment</string>
+    <string name="comment_label">Escribe el comentario</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

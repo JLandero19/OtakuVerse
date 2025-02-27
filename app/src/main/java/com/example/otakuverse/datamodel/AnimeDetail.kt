@@ -12,5 +12,5 @@ data class AnimeDetail(
     @SerialName("information") val information: Information,
     @SerialName("statistics") val statistics: Statistics,
 //    @SerialName("characters") val characters: List<Character>,
-    @SerialName("picture_url") val pictureUrl: String
+    @SerialName("picture_url") val pictureUrl: String,
 )
